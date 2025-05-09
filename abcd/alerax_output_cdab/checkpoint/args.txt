@@ -1,0 +1,4 @@
+mpiRanks:
+1
+command:
+alerax -f families.txt -s cdab_S.tree -p alerax_output_cdab

@@ -1,0 +1,7 @@
+vertical: 3.79
+Node_a_c_0, 0.19
+c, 0.08
+Node_d_e_0, 0.04
+e, 0.03
+Node_a_b_0, 0.03
+d, 0.01

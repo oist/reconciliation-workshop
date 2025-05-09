@@ -1,0 +1,16 @@
+d f 0.83
+e Node_a_c_0 0.12
+Node_a_d_0 d 0.05
+d Node_a_c_0 0.04
+Node_a_c_0 Node_d_e_0 0.04
+Node_d_e_0 Node_a_c_0 0.03
+Node_a_c_0 e 0.03
+Node_a_b_0 Node_d_e_0 0.03
+e f 0.02
+f d 0.01
+f Node_d_e_0 0.01
+f Node_a_d_0 0.01
+Node_d_e_0 e 0.01
+Node_d_e_0 Node_a_b_0 0.01
+Node_a_f_0 d 0.01
+Node_a_c_0 c 0.01

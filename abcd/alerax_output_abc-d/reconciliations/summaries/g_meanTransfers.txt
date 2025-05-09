@@ -1,0 +1,12 @@
+c d 0.64
+d c 0.45
+a c 0.33
+b c 0.25
+b d 0.23
+a d 0.21
+Node_a_c_0 d 0.05
+Node_a_b_0 d 0.05
+d Node_a_c_0 0.04
+Node_a_b_0 c 0.02
+d b 0.01
+c a 0.01

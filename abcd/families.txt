@@ -1,0 +1,3 @@
+[FAMILIES]
+- g
+gene_tree = g.tree

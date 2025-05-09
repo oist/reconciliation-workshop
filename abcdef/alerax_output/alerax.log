@@ -1,0 +1,138 @@
+[00:00:00] AleRax v1.3.0
+[00:00:00] AleRax was called as follows:
+alerax -f families.txt -s S.tree
+
+[00:00:00] Run settings:
+	Output directory: alerax_output
+	Families information: families.txt
+	Starting species tree: will be imported from the user file: S.tree
+	MPI Ranks: 1
+	Random seed: 123
+	Reconciliation model: UndatedDTL
+	Transfer constraint: transfers to parents are forbidden
+	Memory savings: OFF
+	Model parametrization: rates are global to all species and families
+	Rate optimizer: LBFGSB
+	Prune species mode is disabled
+	Gene tree rooting: all gene tree root positions are considered with the same probability
+	Origination strategy: gene families can originate from each species with the same probability
+	Species tree search: skipping species tree search
+	Number of reconciled gene trees to sample: 100
+	AleRax will exclude gene families covering less than 4 species
+
+[00:00:00] Generating ccp files...
+[00:00:00] AleRax v1.3.0
+[00:00:00] AleRax was called as follows:
+alerax -f families.txt -s S.tree
+
+[00:00:00] Run settings:
+	Output directory: alerax_output
+	Families information: families.txt
+	Starting species tree: will be imported from the user file: S.tree
+	MPI Ranks: 1
+	Random seed: 123
+	Reconciliation model: UndatedDTL
+	Transfer constraint: transfers to parents are forbidden
+	Memory savings: OFF
+	Model parametrization: rates are global to all species and families
+	Rate optimizer: LBFGSB
+	Prune species mode is disabled
+	Gene tree rooting: all gene tree root positions are considered with the same probability
+	Origination strategy: gene families can originate from each species with the same probability
+	Species tree search: skipping species tree search
+	Number of reconciled gene trees to sample: 100
+	AleRax will exclude gene families covering less than 4 species
+
+[00:00:00] Generating ccp files...
+[00:00:00] AleRax v1.3.0
+[00:00:00] AleRax was called as follows:
+alerax -f families.txt -s S.tree
+
+[00:00:00] Run settings:
+	Output directory: alerax_output
+	Families information: families.txt
+	Starting species tree: will be imported from the user file: S.tree
+	MPI Ranks: 1
+	Random seed: 123
+	Reconciliation model: UndatedDTL
+	Transfer constraint: transfers to parents are forbidden
+	Memory savings: OFF
+	Model parametrization: rates are global to all species and families
+	Rate optimizer: LBFGSB
+	Prune species mode is disabled
+	Gene tree rooting: all gene tree root positions are considered with the same probability
+	Origination strategy: gene families can originate from each species with the same probability
+	Species tree search: skipping species tree search
+	Number of reconciled gene trees to sample: 100
+	AleRax will exclude gene families covering less than 4 species
+
+[00:00:00] Generating ccp files...
+[00:00:00] AleRax v1.3.0
+[00:00:00] AleRax was called as follows:
+alerax -f families.txt -s S.tree
+
+[00:00:00] Run settings:
+	Output directory: alerax_output
+	Families information: families.txt
+	Starting species tree: will be imported from the user file: S.tree
+	MPI Ranks: 1
+	Random seed: 123
+	Reconciliation model: UndatedDTL
+	Transfer constraint: transfers to parents are forbidden
+	Memory savings: OFF
+	Model parametrization: rates are global to all species and families
+	Rate optimizer: LBFGSB
+	Prune species mode is disabled
+	Gene tree rooting: all gene tree root positions are considered with the same probability
+	Origination strategy: gene families can originate from each species with the same probability
+	Species tree search: skipping species tree search
+	Number of reconciled gene trees to sample: 100
+	AleRax will exclude gene families covering less than 4 species
+
+[00:00:00] Generating ccp files...
+[00:00:00] Families: 4
+[00:00:00] Trimming families covering less than 4 species...
+[00:00:00] Remaining families: 4
+[00:00:00] Initializing starting species tree...
+[00:00:00] Checking that ccps and mappings are valid...
+[00:00:00] Input data information:
+- Number of gene families: 4
+- Number of species: 6
+- Total number of genes: 24
+- Average number of genes per family: 6
+- Maximum number of genes per family: 6
+- Species with the smallest family coverage: "f" (covered by 4/4 families)
+- Average (over species) species family coverage: 4
+
+[00:00:00] Initializing ccps and evaluators...
+[00:00:00] Initializing ccps finished
+[00:00:00] Total number of clades: 86
+[00:00:00] Load balancing: 1
+[00:00:00] Recommended maximum number of cores: 2
+[00:00:00] Initial ll=-40.7751
+
+[00:00:00] Start the species tree optimization...
+
+[00:00:00] Optimization skipped!
+
+[00:00:00] End of the species tree optimization
+[00:00:00] Final species tree topology: alerax_output/species_trees/inferred_species_tree.newick
+
+[00:00:00] Final model rate optimization, non-thorough...
+[00:00:00] [Species search] Optimizing model rates (light), ll=-40.7751
+[00:00:00] [Species search]   Free parameters: 3
+[00:00:00] [Species search]   After model rate opt, ll=-36.6583
+
+[00:00:00] Final model rate optimization, thorough...
+[00:00:00] [Species search] Optimizing model rates (thorough), ll=-36.6583
+[00:00:00] [Species search]   Free parameters: 3
+[00:00:00] [Species search]   After model rate opt, ll=-36.6583
+[00:00:00] Final species tree likelihood: ll=-36.6583
+
+[00:00:00] Reconciling gene trees with the species tree...
+[00:00:00] [Reconciliation] Sampling reconciled gene trees (100 samples per gene family)
+[00:00:00] [Reconciliation] Inferring reconciliations
+[00:00:00] [Reconciliation] Exporting reconciliation summaries
+[00:00:00] Reconciliation output directory: alerax_output/reconciliations
+
+[00:00:00] End of AleRax execution

@@ -1,0 +1,4 @@
+mpiRanks:
+1
+command:
+alerax -f families.txt -s abcd_S.tree -p abcd
