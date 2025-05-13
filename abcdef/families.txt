@@ -1,9 +1,0 @@
-[FAMILIES]
-- red
-gene_tree = red.tree
-- green
-gene_tree = green.tree
-- blue
-gene_tree = blue.tree
-- rgb
-gene_tree = rgb.trees
