@@ -1,0 +1,3 @@
+../alerax --families real_families.txt --species-tree S.tree  --prefix real --gene-tree-samples 100 --seed 42 --rec-model UndatedDTL --model-parametrization GLOBAL
+../alerax --families sim_families.txt --species-tree S.tree  --prefix sim --gene-tree-samples 100 --seed 42 --rec-model UndatedDTL --model-parametrization GLOBAL
+

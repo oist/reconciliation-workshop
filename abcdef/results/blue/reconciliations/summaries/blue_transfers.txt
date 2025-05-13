@@ -1,0 +1,8 @@
+B C 0.5
+C B 0.3
+Node_A_C_0 A 0.2
+Node_D_E_0 Node_A_B_0 0.1
+Node_D_E_0 F 0.1
+Node_D_E_0 A 0.1
+F Node_D_E_0 0.1
+A F 0.1

@@ -1,0 +1,2 @@
+vertical: 18
+Node_SYNPW_SYNPX_0, 0.01

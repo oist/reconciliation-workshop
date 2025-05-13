@@ -1,0 +1,5 @@
+vertical: 17.91
+PROMS, 0.97
+Node_PROM0_PROMS_0, 0.05
+SYNR3, 0.01
+PROM0, 0.01

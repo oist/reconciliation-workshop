@@ -1,0 +1,2 @@
+6
+((Human:2.000000,(Horse:1.000000,Cow:1.000000)Node_Horse_Cow_0:1.000000)Node_Human_Horse_0:1.000000,OUT:3.000000)Node_Human_OUT_0:1.000000;

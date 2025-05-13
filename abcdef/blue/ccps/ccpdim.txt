@@ -1,2 +1,0 @@
-fam, leaves, ccps
-blue, 6, 19

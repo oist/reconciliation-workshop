@@ -1,0 +1,4 @@
+vertical: 17.75
+Node_CYAA5_SYNP2_0, 0.02
+Node_ANASP_CYAA5_0, 0.02
+SYNP2, 0.01

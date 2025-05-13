@@ -1,0 +1,2 @@
+vertical: 17.91
+SYNS3, 0.09

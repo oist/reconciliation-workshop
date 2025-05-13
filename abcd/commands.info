@@ -1,4 +1,8 @@
-# AleRax doesn't work as it only has UndatedDTL model
-../alerax --families families.txt --species-tree abcd_S.tree --prefix alerax_output_abcd --gene-tree-samples 10 --rec-model UndatedDTL --model-parametrization GLOBAL --transfer-constraint RELDATED
-../alerax --families families.txt --species-tree cdab_S.tree --prefix alerax_output_cdab --gene-tree-samples 10 --rec-model UndatedDTL --model-parametrization GLOBAL --transfer-constraint RELDATED
-../alerax --families families.txt --species-tree abc-d_S.tree --prefix alerax_output_abc-d --gene-tree-samples 10 --rec-model UndatedDTL --model-parametrization GLOBAL --transfer-constraint RELDATED
+ALEobserve g.tree
+ALEml abcd_S.tree g.tree.ale sample=10
+ALEml cdab_S.tree g.tree.ale sample=10
+ALEml abc-d_S.tree g.tree.ale sample=10
+
+ALEml abcd_S.tree g.tree.ale sample=10 delta=0.0 tau=0.01 lambda=0.01
+ALEml cdab_S.tree g.tree.ale sample=10 delta=0.0 tau=0.01 lambda=0.01
+ALEml abc-d_S.tree g.tree.ale sample=10 delta=0.0 tau=0.01 lambda=0.01

@@ -1,0 +1,5 @@
+vertical: 18.01
+PRMAR1, 0.81
+PROM4, 0.16
+Node_PROM1_PROM9_0, 0.01
+Node_PRMAR1_PROM4_0, 0.01

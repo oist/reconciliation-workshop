@@ -1,12 +1,12 @@
 [00:00:00] AleRax v1.2.0
 [00:00:00] AleRax was called as follow:
-alerax --families Zuckerkandl-Pauling.families --species-tree data/HuHoCo.sptree --prefix Zuckerkandl-Pauling --gene-tree-samples 10 --seed 42 --rec-model UndatedDL --model-parametrization GLOBAL 
+../alerax --families Zuckerkandl-Pauling.families --species-tree data/HuHoCo.sptree --prefix Zuckerkandl-Pauling --gene-tree-samples 10 --seed 42 --rec-model UndatedDL --model-parametrization GLOBAL 
 
 [00:00:00] Run settings:
 	Family file: Zuckerkandl-Pauling.families
 	Starting species tree: specified by user: data/HuHoCo.sptree
 	Output directory: Zuckerkandl-Pauling
-	MPI Ranks: 1
+	You are running GeneRax without MPI (no parallelization)
 	Number of reconciled gene trees to sample: 10
 	Random seed: 42
 	Reconciliation model: UndatedDL

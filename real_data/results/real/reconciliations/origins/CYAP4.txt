@@ -1,0 +1,2 @@
+vertical: 18.03
+ACAM1, 0.02

@@ -1,0 +1,5 @@
+vertical: 17.13
+Node_SYNE7_SYNP6_0, 0.04
+Node_THEEB_CYAP4_0, 0.02
+ACAM1, 0.02
+Node_THEEB_ACAM1_0, 0.01

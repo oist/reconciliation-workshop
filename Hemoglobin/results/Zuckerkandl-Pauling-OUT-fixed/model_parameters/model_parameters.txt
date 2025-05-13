@@ -1,0 +1,7 @@
+Human 0.01 0.01
+Horse 0.01 0.01
+Cow 0.01 0.01
+OUT 0.01 0.01
+Node_Human_Horse_0 0.01 0.01
+Node_Horse_Cow_0 0.01 0.01
+Node_Human_OUT_0 0.01 0.01

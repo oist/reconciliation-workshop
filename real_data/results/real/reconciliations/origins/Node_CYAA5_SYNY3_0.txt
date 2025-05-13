@@ -1,0 +1,5 @@
+vertical: 17.25
+Node_THEEB_CYAP4_0, 0.02
+THEEB, 0.01
+CYAP4, 0.01
+ACAM1, 0.01

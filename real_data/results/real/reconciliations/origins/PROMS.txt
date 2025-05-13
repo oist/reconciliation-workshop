@@ -1,0 +1,5 @@
+vertical: 18.01
+Node_PROM9_PROM2_0, 0.75
+Node_PROM2_PROM0_0, 0.07
+PROM9, 0.06
+Node_PROM9_PROM5_0, 0.01

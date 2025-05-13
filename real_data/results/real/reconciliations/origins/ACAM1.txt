@@ -1,0 +1,4 @@
+vertical: 17.96
+SYNY3, 0.04
+CYAP4, 0.02
+Node_CYAP7_MICAN_0, 0.01

@@ -1,2 +1,0 @@
-vertical: 1
-Node_A_C_0, 0.2

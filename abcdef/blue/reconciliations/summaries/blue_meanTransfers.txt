@@ -1,8 +1,0 @@
-B C 0.6
-Node_A_C_0 A 0.2
-C B 0.2
-Node_D_E_0 Node_A_B_0 0.1
-Node_D_E_0 F 0.1
-Node_A_C_0 Node_A_B_0 0.1
-Node_A_B_0 Node_D_E_0 0.1
-Node_A_B_0 F 0.1

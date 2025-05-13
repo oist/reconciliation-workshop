@@ -1,0 +1,1 @@
+(OUT_OUT:0.1,(((Cow_gamma:0.1,Cow_beta-delta:0.1)1.000000:0.1,(Horse_beta-delta:0.1,(Human_delta:0.1,Human_beta:0.1)1.000000:0.1)1.000000:0.1):0.1,Human_gamma:0.1)1.000000:0.1);

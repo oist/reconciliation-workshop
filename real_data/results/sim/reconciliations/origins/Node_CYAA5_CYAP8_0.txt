@@ -1,0 +1,5 @@
+vertical: 17.97
+MICAN, 0.06
+SYNY3, 0.03
+CYAP4, 0.02
+CYAP7, 0.01

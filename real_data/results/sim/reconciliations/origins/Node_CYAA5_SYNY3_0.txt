@@ -1,0 +1,5 @@
+vertical: 17.43
+CYAP4, 0.83
+Node_THEEB_CYAP4_0, 0.02
+ACAM1, 0.02
+Node_CYAA5_SYNP2_0, 0.01

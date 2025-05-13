@@ -1,0 +1,1214 @@
+/*
+    Copyright (C) 2015 Tomas Flouri, Diego Darriba
+
+    This program is free software: you can redistribute it and/or modify
+    it under the terms of the GNU Affero General Public License as
+    published by the Free Software Foundation, either version 3 of the
+    License, or (at your option) any later version.
+
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU Affero General Public License for more details.
+
+    You should have received a copy of the GNU Affero General Public License
+    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+    Contact: Tomas Flouri <Tomas.Flouri@h-its.org>,
+    Exelixis Lab, Heidelberg Instutute for Theoretical Studies
+    Schloss-Wolfsbrunnenweg 35, D-69118 Heidelberg, Germany
+*/
+
+#include "corax/corax.h"
+
+static void fill_parent_scaler(unsigned int        scaler_size,
+                               unsigned int *      parent_scaler,
+                               const unsigned int *left_scaler,
+                               const unsigned int *right_scaler)
+{
+  unsigned int i;
+
+  if (!left_scaler && !right_scaler)
+    memset(parent_scaler, 0, sizeof(unsigned int) * scaler_size);
+  else if (left_scaler && right_scaler)
+  {
+    memcpy(parent_scaler, left_scaler, sizeof(unsigned int) * scaler_size);
+    for (i = 0; i < scaler_size; ++i) parent_scaler[i] += right_scaler[i];
+  }
+  else
+  {
+    if (left_scaler)
+      memcpy(parent_scaler, left_scaler, sizeof(unsigned int) * scaler_size);
+    else
+      memcpy(parent_scaler, right_scaler, sizeof(unsigned int) * scaler_size);
+  }
+}
+
+CORAX_EXPORT void
+corax_core_update_clv_tt_4x4(unsigned int         sites,
+                             unsigned int         rate_cats,
+                             double *             parent_clv,
+                             unsigned int *       parent_scaler,
+                             const unsigned char *left_tipchars,
+                             const unsigned char *right_tipchars,
+                             const double *       lookup,
+                             unsigned int         attrib)
+{
+  unsigned int  j, k, n;
+  unsigned int  states = 4;
+  unsigned int  span   = states * rate_cats;
+  const double *offset;
+
+  size_t scaler_size =
+      (attrib & CORAX_ATTRIB_RATE_SCALERS) ? sites * rate_cats : sites;
+
+  if (parent_scaler)
+    memset(parent_scaler, 0, sizeof(unsigned int) * scaler_size);
+
+  for (n = 0; n < sites; ++n)
+  {
+    j = (unsigned int)(left_tipchars[n]);
+    k = (unsigned int)(right_tipchars[n]);
+
+    offset = lookup;
+    offset += ((j << 4) + k) * span;
+
+    memcpy(parent_clv, offset, span * sizeof(double));
+
+    parent_clv += span;
+  }
+}
+
+CORAX_EXPORT void corax_core_update_clv_tt(unsigned int         states,
+                                           unsigned int         sites,
+                                           unsigned int         rate_cats,
+                                           double *             parent_clv,
+                                           unsigned int *       parent_scaler,
+                                           const unsigned char *left_tipchars,
+                                           const unsigned char *right_tipchars,
+                                           unsigned int         tipmap_size,
+                                           const double *       lookup,
+                                           unsigned int         attrib)
+{
+  unsigned int  j, k, n;
+  const double *offset;
+
+#ifdef HAVE_SSE3
+  if (attrib & CORAX_ATTRIB_ARCH_SSE && CORAX_HAS_CPU_FEATURE(sse3_present))
+  {
+    if (states == 4)
+      corax_core_update_clv_tt_4x4_sse(sites,
+                                       rate_cats,
+                                       parent_clv,
+                                       parent_scaler,
+                                       left_tipchars,
+                                       right_tipchars,
+                                       lookup,
+                                       attrib);
+    else
+      corax_core_update_clv_tt_sse(states,
+                                   sites,
+                                   rate_cats,
+                                   parent_clv,
+                                   parent_scaler,
+                                   left_tipchars,
+                                   right_tipchars,
+                                   lookup,
+                                   tipmap_size,
+                                   attrib);
+
+    return;
+  }
+
+#endif
+#ifdef HAVE_AVX
+  if (attrib & CORAX_ATTRIB_ARCH_AVX && CORAX_HAS_CPU_FEATURE(avx_present))
+  {
+    if (states == 4)
+      corax_core_update_clv_tt_4x4_avx(sites,
+                                       rate_cats,
+                                       parent_clv,
+                                       parent_scaler,
+                                       left_tipchars,
+                                       right_tipchars,
+                                       lookup,
+                                       attrib);
+    else
+      corax_core_update_clv_tt_avx(states,
+                                   sites,
+                                   rate_cats,
+                                   parent_clv,
+                                   parent_scaler,
+                                   left_tipchars,
+                                   right_tipchars,
+                                   lookup,
+                                   tipmap_size,
+                                   attrib);
+
+    return;
+  }
+#endif
+#ifdef HAVE_AVX2
+  if (attrib & CORAX_ATTRIB_ARCH_AVX2 && CORAX_HAS_CPU_FEATURE(avx2_present))
+  {
+    if (states == 4)
+      corax_core_update_clv_tt_4x4_avx(sites,
+                                       rate_cats,
+                                       parent_clv,
+                                       parent_scaler,
+                                       left_tipchars,
+                                       right_tipchars,
+                                       lookup,
+                                       attrib);
+    else
+      corax_core_update_clv_tt_avx(states,
+                                   sites,
+                                   rate_cats,
+                                   parent_clv,
+                                   parent_scaler,
+                                   left_tipchars,
+                                   right_tipchars,
+                                   lookup,
+                                   tipmap_size,
+                                   attrib);
+
+    return;
+  }
+#endif
+
+  unsigned int span           = states * rate_cats;
+  unsigned int log2_maxstates = (unsigned int)ceil(log2(tipmap_size));
+  size_t       scaler_size =
+      (attrib & CORAX_ATTRIB_RATE_SCALERS) ? sites * rate_cats : sites;
+
+  if (parent_scaler)
+    memset(parent_scaler, 0, sizeof(unsigned int) * scaler_size);
+
+  for (n = 0; n < sites; ++n)
+  {
+    j = (unsigned int)(left_tipchars[n]);
+    k = (unsigned int)(right_tipchars[n]);
+
+    offset = lookup;
+    offset += ((j << log2_maxstates) + k) * span;
+
+    memcpy(parent_clv, offset, span * sizeof(double));
+
+    parent_clv += span;
+  }
+}
+
+CORAX_EXPORT void
+corax_core_update_clv_ti_4x4(unsigned int         sites,
+                             unsigned int         rate_cats,
+                             double *             parent_clv,
+                             unsigned int *       parent_scaler,
+                             const unsigned char *left_tipchars,
+                             const double *       right_clv,
+                             const double *       left_matrix,
+                             const double *       right_matrix,
+                             const unsigned int * right_scaler,
+                             unsigned int         attrib)
+{
+  unsigned int states = 4;
+  unsigned int i, j, k, n;
+  unsigned int span = states * rate_cats;
+
+  unsigned int scale_mode; /* 0 = none, 1 = per-site, 2 = per-rate */
+  unsigned int site_scale;
+  unsigned int init_mask;
+
+  const double *lmat;
+  const double *rmat;
+
+#ifdef HAVE_SSE3
+  if (attrib & CORAX_ATTRIB_ARCH_SSE && CORAX_HAS_CPU_FEATURE(sse3_present))
+  {
+    corax_core_update_clv_ti_4x4_sse(sites,
+                                     rate_cats,
+                                     parent_clv,
+                                     parent_scaler,
+                                     left_tipchars,
+                                     right_clv,
+                                     left_matrix,
+                                     right_matrix,
+                                     right_scaler,
+                                     attrib);
+    return;
+  }
+#endif
+#ifdef HAVE_AVX
+  if (attrib & CORAX_ATTRIB_ARCH_AVX && CORAX_HAS_CPU_FEATURE(avx_present))
+  {
+    corax_core_update_clv_ti_4x4_avx(sites,
+                                     rate_cats,
+                                     parent_clv,
+                                     parent_scaler,
+                                     left_tipchars,
+                                     right_clv,
+                                     left_matrix,
+                                     right_matrix,
+                                     right_scaler,
+                                     attrib);
+    return;
+  }
+#endif
+#ifdef HAVE_AVX2
+  if (attrib & CORAX_ATTRIB_ARCH_AVX2 && CORAX_HAS_CPU_FEATURE(avx2_present))
+  {
+    corax_core_update_clv_ti_4x4_avx(sites,
+                                     rate_cats,
+                                     parent_clv,
+                                     parent_scaler,
+                                     left_tipchars,
+                                     right_clv,
+                                     left_matrix,
+                                     right_matrix,
+                                     right_scaler,
+                                     attrib);
+    return;
+  }
+#endif
+
+  /* init scaling-related stuff */
+  if (parent_scaler)
+  {
+    /* determine the scaling mode and init the vars accordingly */
+    scale_mode = (attrib & CORAX_ATTRIB_RATE_SCALERS) ? 2 : 1;
+    init_mask  = (scale_mode == 1) ? 1 : 0;
+    const unsigned int scaler_size =
+        (scale_mode == 2) ? sites * rate_cats : sites;
+
+    /* update the parent scaler with the scaler of the right child */
+    fill_parent_scaler(scaler_size, parent_scaler, NULL, right_scaler);
+  }
+  else
+  {
+    /* scaling disabled / not required */
+    scale_mode = init_mask = 0;
+  }
+
+  for (n = 0; n < sites; ++n)
+  {
+    lmat = left_matrix;
+    rmat = right_matrix;
+
+    site_scale = init_mask;
+
+    for (k = 0; k < rate_cats; ++k)
+    {
+      unsigned int rate_scale = 1;
+      for (i = 0; i < states; ++i)
+      {
+        double       terma  = 0;
+        double       termb  = 0;
+        unsigned int lstate = left_tipchars[n];
+        for (j = 0; j < states; ++j)
+        {
+          if (lstate & 1) terma += lmat[j];
+
+          termb += rmat[j] * right_clv[j];
+
+          lstate >>= 1;
+        }
+        parent_clv[i] = terma * termb;
+
+        rate_scale &= (parent_clv[i] < CORAX_SCALE_THRESHOLD);
+
+        lmat += states;
+        rmat += states;
+      }
+
+      /* check if scaling is needed for the current rate category */
+      if (scale_mode == 2)
+      {
+        /* PER-RATE SCALING: if *all* entries of the *rate* CLV were below
+         * the threshold then scale (all) entries by CORAX_SCALE_FACTOR */
+        if (rate_scale)
+        {
+          for (i = 0; i < states; ++i) parent_clv[i] *= CORAX_SCALE_FACTOR;
+          parent_scaler[n * rate_cats + k] += 1;
+        }
+      }
+      else
+        site_scale = site_scale && rate_scale;
+
+      parent_clv += states;
+      right_clv += states;
+    }
+
+    /* PER-SITE SCALING: if *all* entries of the *site* CLV were below
+     * the threshold then scale (all) entries by CORAX_SCALE_FACTOR */
+    if (site_scale)
+    {
+      parent_clv -= span;
+      for (i = 0; i < span; ++i) parent_clv[i] *= CORAX_SCALE_FACTOR;
+      parent_clv += span;
+      parent_scaler[n] += 1;
+    }
+  }
+}
+
+CORAX_EXPORT void corax_core_update_clv_ti(unsigned int         states,
+                                           unsigned int         sites,
+                                           unsigned int         rate_cats,
+                                           double *             parent_clv,
+                                           unsigned int *       parent_scaler,
+                                           const unsigned char *left_tipchars,
+                                           const double *       right_clv,
+                                           const double *       left_matrix,
+                                           const double *       right_matrix,
+                                           const unsigned int * right_scaler,
+                                           const corax_state_t *tipmap,
+                                           unsigned int         tipmap_size,
+                                           unsigned int         attrib)
+{
+  int          scaling;
+  unsigned int i, j, k, n;
+  unsigned int span = states * rate_cats;
+  unsigned int scaler_size =
+      (attrib & CORAX_ATTRIB_RATE_SCALERS) ? sites * rate_cats : sites;
+
+  const double *lmat;
+  const double *rmat;
+
+#ifdef HAVE_SSE3
+  if (attrib & CORAX_ATTRIB_ARCH_SSE && CORAX_HAS_CPU_FEATURE(sse3_present))
+  {
+    if (states == 4)
+      corax_core_update_clv_ti_4x4_sse(sites,
+                                       rate_cats,
+                                       parent_clv,
+                                       parent_scaler,
+                                       left_tipchars,
+                                       right_clv,
+                                       left_matrix,
+                                       right_matrix,
+                                       right_scaler,
+                                       attrib);
+    else
+      corax_core_update_clv_ti_sse(states,
+                                   sites,
+                                   rate_cats,
+                                   parent_clv,
+                                   parent_scaler,
+                                   left_tipchars,
+                                   right_clv,
+                                   left_matrix,
+                                   right_matrix,
+                                   right_scaler,
+                                   tipmap,
+                                   tipmap_size,
+                                   attrib);
+    return;
+  }
+#endif
+#ifdef HAVE_AVX
+  if (attrib & CORAX_ATTRIB_ARCH_AVX && CORAX_HAS_CPU_FEATURE(avx_present))
+  {
+    corax_core_update_clv_ti_avx(states,
+                                 sites,
+                                 rate_cats,
+                                 parent_clv,
+                                 parent_scaler,
+                                 left_tipchars,
+                                 right_clv,
+                                 left_matrix,
+                                 right_matrix,
+                                 right_scaler,
+                                 tipmap,
+                                 tipmap_size,
+                                 attrib);
+    return;
+  }
+#endif
+#ifdef HAVE_AVX2
+  if (attrib & CORAX_ATTRIB_ARCH_AVX2 && CORAX_HAS_CPU_FEATURE(avx2_present))
+  {
+    corax_core_update_clv_ti_avx2(states,
+                                  sites,
+                                  rate_cats,
+                                  parent_clv,
+                                  parent_scaler,
+                                  left_tipchars,
+                                  right_clv,
+                                  left_matrix,
+                                  right_matrix,
+                                  right_scaler,
+                                  tipmap,
+                                  tipmap_size,
+                                  attrib);
+    return;
+  }
+#endif
+
+  if (states == 4)
+  {
+    corax_core_update_clv_ti_4x4(sites,
+                                 rate_cats,
+                                 parent_clv,
+                                 parent_scaler,
+                                 left_tipchars,
+                                 right_clv,
+                                 left_matrix,
+                                 right_matrix,
+                                 right_scaler,
+                                 attrib);
+    return;
+  }
+
+  if (parent_scaler)
+    fill_parent_scaler(scaler_size, parent_scaler, NULL, right_scaler);
+
+  for (n = 0; n < sites; ++n)
+  {
+    lmat = left_matrix;
+    rmat = right_matrix;
+
+    scaling = (parent_scaler) ? 1 : 0;
+
+    for (k = 0; k < rate_cats; ++k)
+    {
+      for (i = 0; i < states; ++i)
+      {
+        double        terma  = 0;
+        double        termb  = 0;
+        corax_state_t lstate = tipmap[(unsigned int)left_tipchars[n]];
+        for (j = 0; j < states; ++j)
+        {
+          if (lstate & 1) terma += lmat[j];
+
+          termb += rmat[j] * right_clv[j];
+
+          lstate >>= 1;
+        }
+        parent_clv[i] = terma * termb;
+        lmat += states;
+        rmat += states;
+
+        scaling = scaling && (parent_clv[i] < CORAX_SCALE_THRESHOLD);
+      }
+      parent_clv += states;
+      right_clv += states;
+    }
+    /* if *all* entries of the site CLV were below the threshold then scale
+       (all) entries by CORAX_SCALE_FACTOR */
+    if (scaling)
+    {
+      parent_clv -= span;
+      for (i = 0; i < span; ++i) parent_clv[i] *= CORAX_SCALE_FACTOR;
+      parent_clv += span;
+      parent_scaler[n] += 1;
+    }
+  }
+}
+
+CORAX_EXPORT void
+corax_core_update_clv_repeats(unsigned int        states,
+                              unsigned int        parent_sites,
+                              unsigned int        left_sites,
+                              unsigned int        right_sites,
+                              unsigned int        rate_cats,
+                              double *            parent_clv,
+                              unsigned int *      parent_scaler,
+                              const double *      left_clv,
+                              const double *      right_clv,
+                              const double *      left_matrix,
+                              const double *      right_matrix,
+                              const unsigned int *left_scaler,
+                              const unsigned int *right_scaler,
+                              const unsigned int *parent_id_site,
+                              const unsigned int *left_site_id,
+                              const unsigned int *right_site_id,
+                              double *            bclv_buffer,
+                              unsigned int        attrib)
+{
+  void (*core_update_clvs)(unsigned int        states,
+                           unsigned int        parent_sites,
+                           unsigned int        left_sites,
+                           unsigned int        right_sites,
+                           unsigned int        rate_cats,
+                           double *            parent_clv,
+                           unsigned int *      parent_scaler,
+                           const double *      left_clv,
+                           const double *      right_clv,
+                           const double *      left_matrix,
+                           const double *      right_matrix,
+                           const unsigned int *left_scaler,
+                           const unsigned int *right_scaler,
+                           const unsigned int *parent_id_site,
+                           const unsigned int *left_site_id,
+                           const unsigned int *right_site_id,
+                           double *            bclv_buffer,
+                           unsigned int        attrib) = 0x0;
+
+  unsigned int use_bclv =
+      (bclv_buffer && (left_sites < ((parent_sites * 2) / 3) + 1));
+
+  if (use_bclv)
+    core_update_clvs = corax_core_update_clv_repeatsbclv_generic;
+  else
+    core_update_clvs = corax_core_update_clv_repeats_generic;
+#ifdef HAVE_AVX
+  if (attrib & CORAX_ATTRIB_ARCH_AVX && CORAX_HAS_CPU_FEATURE(avx_present))
+  {
+    if (states == 4)
+    {
+      if (use_bclv)
+        core_update_clvs = corax_core_update_clv_repeatsbclv_4x4_avx;
+      else
+        core_update_clvs = corax_core_update_clv_repeats_4x4_avx;
+    }
+    else
+    {
+      if (use_bclv)
+        core_update_clvs = corax_core_update_clv_repeatsbclv_generic_avx;
+      else
+        core_update_clvs = corax_core_update_clv_repeats_generic_avx;
+    }
+  }
+#endif
+#ifdef HAVE_SSE3
+  if (attrib & CORAX_ATTRIB_ARCH_SSE && CORAX_HAS_CPU_FEATURE(sse3_present))
+  {
+    core_update_clvs = corax_core_update_clv_repeats_generic_sse;
+  }
+
+#endif
+#ifdef HAVE_AVX2
+  if (attrib & CORAX_ATTRIB_ARCH_AVX2 && CORAX_HAS_CPU_FEATURE(avx2_present))
+  {
+    core_update_clvs = corax_core_update_clv_repeats_generic_avx2;
+    if (states == 4)
+    {
+      // for DNA, avx is faster than avx2
+      if (use_bclv)
+        core_update_clvs = corax_core_update_clv_repeatsbclv_4x4_avx;
+      else
+        core_update_clvs = corax_core_update_clv_repeats_4x4_avx;
+    }
+  }
+#endif
+  core_update_clvs(states,
+                   parent_sites,
+                   left_sites,
+                   right_sites,
+                   rate_cats,
+                   parent_clv,
+                   parent_scaler,
+                   left_clv,
+                   right_clv,
+                   left_matrix,
+                   right_matrix,
+                   left_scaler,
+                   right_scaler,
+                   parent_id_site,
+                   left_site_id,
+                   right_site_id,
+                   bclv_buffer,
+                   attrib);
+}
+
+CORAX_EXPORT void corax_core_update_clv_ii(unsigned int        states,
+                                           unsigned int        sites,
+                                           unsigned int        rate_cats,
+                                           double *            parent_clv,
+                                           unsigned int *      parent_scaler,
+                                           const double *      left_clv,
+                                           const double *      right_clv,
+                                           const double *      left_matrix,
+                                           const double *      right_matrix,
+                                           const unsigned int *left_scaler,
+                                           const unsigned int *right_scaler,
+                                           unsigned int        attrib)
+{
+  unsigned int i, j, k, n;
+
+  unsigned int scale_mode; /* 0 = none, 1 = per-site, 2 = per-rate */
+  unsigned int site_scale;
+  unsigned int init_mask;
+
+  const double *lmat;
+  const double *rmat;
+
+  unsigned int span = states * rate_cats;
+
+#ifdef HAVE_SSE3
+  if (attrib & CORAX_ATTRIB_ARCH_SSE && CORAX_HAS_CPU_FEATURE(sse3_present))
+  {
+    corax_core_update_clv_ii_sse(states,
+                                 sites,
+                                 rate_cats,
+                                 parent_clv,
+                                 parent_scaler,
+                                 left_clv,
+                                 right_clv,
+                                 left_matrix,
+                                 right_matrix,
+                                 left_scaler,
+                                 right_scaler,
+                                 attrib);
+    return;
+  }
+#endif
+#ifdef HAVE_AVX
+  if (attrib & CORAX_ATTRIB_ARCH_AVX && CORAX_HAS_CPU_FEATURE(avx_present))
+  {
+    corax_core_update_clv_ii_avx(states,
+                                 sites,
+                                 rate_cats,
+                                 parent_clv,
+                                 parent_scaler,
+                                 left_clv,
+                                 right_clv,
+                                 left_matrix,
+                                 right_matrix,
+                                 left_scaler,
+                                 right_scaler,
+                                 attrib);
+    return;
+  }
+#endif
+#ifdef HAVE_AVX2
+  if (attrib & CORAX_ATTRIB_ARCH_AVX2 && CORAX_HAS_CPU_FEATURE(avx2_present))
+  {
+    corax_core_update_clv_ii_avx2(states,
+                                  sites,
+                                  rate_cats,
+                                  parent_clv,
+                                  parent_scaler,
+                                  left_clv,
+                                  right_clv,
+                                  left_matrix,
+                                  right_matrix,
+                                  left_scaler,
+                                  right_scaler,
+                                  attrib);
+    return;
+  }
+#endif
+
+  /* init scaling-related stuff */
+  if (parent_scaler)
+  {
+    /* determine the scaling mode and init the vars accordingly */
+    scale_mode = (attrib & CORAX_ATTRIB_RATE_SCALERS) ? 2 : 1;
+    init_mask  = (scale_mode == 1) ? 1 : 0;
+    const unsigned int scaler_size =
+        (scale_mode == 2) ? sites * rate_cats : sites;
+
+    /* add up the scale vectors of the two children if available */
+    fill_parent_scaler(scaler_size, parent_scaler, left_scaler, right_scaler);
+  }
+  else
+  {
+    /* scaling disabled / not required */
+    scale_mode = init_mask = 0;
+  }
+
+  /* compute CLV */
+  for (n = 0; n < sites; ++n)
+  {
+    lmat       = left_matrix;
+    rmat       = right_matrix;
+    site_scale = init_mask;
+
+    for (k = 0; k < rate_cats; ++k)
+    {
+      unsigned int rate_scale = 1;
+      for (i = 0; i < states; ++i)
+      {
+        double terma = 0;
+        double termb = 0;
+        for (j = 0; j < states; ++j)
+        {
+          terma += lmat[j] * left_clv[j];
+          termb += rmat[j] * right_clv[j];
+        }
+        parent_clv[i] = terma * termb;
+
+        rate_scale &= (parent_clv[i] < CORAX_SCALE_THRESHOLD);
+
+        lmat += states;
+        rmat += states;
+      }
+
+      /* check if scaling is needed for the current rate category */
+      if (scale_mode == 2)
+      {
+        /* PER-RATE SCALING: if *all* entries of the *rate* CLV were below
+         * the threshold then scale (all) entries by CORAX_SCALE_FACTOR */
+        if (rate_scale)
+        {
+          for (i = 0; i < states; ++i) parent_clv[i] *= CORAX_SCALE_FACTOR;
+          parent_scaler[n * rate_cats + k] += 1;
+        }
+      }
+      else
+        site_scale = site_scale && rate_scale;
+
+      parent_clv += states;
+      left_clv += states;
+      right_clv += states;
+    }
+    /* PER-SITE SCALING: if *all* entries of the *site* CLV were below
+     * the threshold then scale (all) entries by CORAX_SCALE_FACTOR */
+    if (site_scale)
+    {
+      parent_clv -= span;
+      for (i = 0; i < span; ++i) parent_clv[i] *= CORAX_SCALE_FACTOR;
+      parent_clv += span;
+      parent_scaler[n] += 1;
+    }
+  }
+}
+
+CORAX_EXPORT void
+corax_core_update_clv_repeats_generic(unsigned int        states,
+                                      unsigned int        parent_sites,
+                                      unsigned int        left_sites,
+                                      unsigned int        right_sites,
+                                      unsigned int        rate_cats,
+                                      double *            parent_clv,
+                                      unsigned int *      parent_scaler,
+                                      const double *      left_clv,
+                                      const double *      right_clv,
+                                      const double *      left_matrix,
+                                      const double *      right_matrix,
+                                      const unsigned int *left_scaler,
+                                      const unsigned int *right_scaler,
+                                      const unsigned int *parent_id_site,
+                                      const unsigned int *left_site_id,
+                                      const unsigned int *right_site_id,
+                                      double *            bclv_buffer,
+                                      unsigned int        attrib)
+{
+  CORAX_UNUSED(left_sites);
+  CORAX_UNUSED(right_sites);
+  CORAX_UNUSED(bclv_buffer);
+  unsigned int i, j, k, n;
+
+  unsigned int scale_mode; /* 0 = none, 1 = per-site, 2 = per-rate */
+  unsigned int site_scale;
+  unsigned int init_mask;
+
+  const double *lmat;
+  const double *rmat;
+
+  unsigned int span = states * rate_cats;
+
+  /* init scaling-related stuff */
+  if (parent_scaler)
+  {
+    /* determine the scaling mode and init the vars accordingly */
+    scale_mode = (attrib & CORAX_ATTRIB_RATE_SCALERS) ? 2 : 1;
+    init_mask  = (scale_mode == 1) ? 1 : 0;
+
+    /* add up the scale vectors of the two children if available */
+    if (scale_mode == 2)
+      corax_fill_parent_scaler_repeats_per_rate(parent_sites,
+                                                rate_cats,
+                                                parent_scaler,
+                                                parent_id_site,
+                                                left_scaler,
+                                                left_site_id,
+                                                right_scaler,
+                                                right_site_id);
+    else
+      corax_fill_parent_scaler_repeats(parent_sites,
+                                       parent_scaler,
+                                       parent_id_site,
+                                       left_scaler,
+                                       left_site_id,
+                                       right_scaler,
+                                       right_site_id);
+  }
+  else
+  {
+    /* scaling disabled / not required */
+    scale_mode = init_mask = 0;
+  }
+
+  /* compute CLV */
+  for (n = 0; n < parent_sites; ++n)
+  {
+    unsigned int  site = CORAX_GET_SITE(parent_id_site, n);
+    unsigned int  lid  = CORAX_GET_ID(left_site_id, site);
+    unsigned int  rid  = CORAX_GET_ID(right_site_id, site);
+    const double *lclv = &left_clv[lid * span];
+    const double *rclv = &right_clv[rid * span];
+    lmat               = left_matrix;
+    rmat               = right_matrix;
+    site_scale         = init_mask;
+
+    for (k = 0; k < rate_cats; ++k)
+    {
+      unsigned int rate_scale = 1;
+      for (i = 0; i < states; ++i)
+      {
+        double terma = 0;
+        double termb = 0;
+        for (j = 0; j < states; ++j)
+        {
+          terma += lmat[j] * lclv[j];
+          termb += rmat[j] * rclv[j];
+        }
+        parent_clv[i] = terma * termb;
+
+        rate_scale &= (parent_clv[i] < CORAX_SCALE_THRESHOLD);
+
+        lmat += states;
+        rmat += states;
+      }
+
+      /* check if scaling is needed for the current rate category */
+      if (scale_mode == 2)
+      {
+        /* PER-RATE SCALING: if *all* entries of the *rate* CLV were below
+         * the threshold then scale (all) entries by CORAX_SCALE_FACTOR */
+        if (rate_scale)
+        {
+          for (i = 0; i < states; ++i) parent_clv[i] *= CORAX_SCALE_FACTOR;
+          parent_scaler[n * rate_cats + k] += 1;
+        }
+      }
+      else
+        site_scale = site_scale && rate_scale;
+
+      parent_clv += states;
+      lclv += states;
+      rclv += states;
+    }
+    /* PER-SITE SCALING: if *all* entries of the *site* CLV were below
+     * the threshold then scale (all) entries by CORAX_SCALE_FACTOR */
+    if (site_scale)
+    {
+      parent_clv -= span;
+      for (i = 0; i < span; ++i) parent_clv[i] *= CORAX_SCALE_FACTOR;
+      parent_clv += span;
+      parent_scaler[n] += 1;
+    }
+  }
+}
+
+CORAX_EXPORT void
+corax_core_update_clv_repeatsbclv_generic(unsigned int        states,
+                                          unsigned int        parent_sites,
+                                          unsigned int        left_sites,
+                                          unsigned int        right_sites,
+                                          unsigned int        rate_cats,
+                                          double *            parent_clv,
+                                          unsigned int *      parent_scaler,
+                                          const double *      left_clv,
+                                          const double *      right_clv,
+                                          const double *      left_matrix,
+                                          const double *      right_matrix,
+                                          const unsigned int *left_scaler,
+                                          const unsigned int *right_scaler,
+                                          const unsigned int *parent_id_site,
+                                          const unsigned int *left_site_id,
+                                          const unsigned int *right_site_id,
+                                          double *            bclv_buffer,
+                                          unsigned int        attrib)
+{
+  CORAX_UNUSED(right_sites);
+  unsigned int i, j, k, n;
+
+  unsigned int scale_mode; /* 0 = none, 1 = per-site, 2 = per-rate */
+  unsigned int site_scale;
+  unsigned int init_mask;
+
+  const double *lmat;
+  const double *rmat;
+
+  unsigned int span = states * rate_cats;
+
+  /* init scaling-related stuff */
+  if (parent_scaler)
+  {
+    /* determine the scaling mode and init the vars accordingly */
+    scale_mode = (attrib & CORAX_ATTRIB_RATE_SCALERS) ? 2 : 1;
+    init_mask  = (scale_mode == 1) ? 1 : 0;
+
+    /* add up the scale vectors of the two children if available */
+    if (scale_mode == 2)
+      corax_fill_parent_scaler_repeats_per_rate(parent_sites,
+                                                rate_cats,
+                                                parent_scaler,
+                                                parent_id_site,
+                                                left_scaler,
+                                                left_site_id,
+                                                right_scaler,
+                                                right_site_id);
+    else
+      corax_fill_parent_scaler_repeats(parent_sites,
+                                       parent_scaler,
+                                       parent_id_site,
+                                       left_scaler,
+                                       left_site_id,
+                                       right_scaler,
+                                       right_site_id);
+  }
+  else
+  {
+    /* scaling disabled / not required */
+    scale_mode = init_mask = 0;
+  }
+  const double *lclv  = left_clv;
+  double *      lbclv = bclv_buffer;
+  /* compute bclv */
+  for (n = 0; n < left_sites; ++n)
+  {
+    lmat = left_matrix;
+    for (k = 0; k < rate_cats; ++k)
+    {
+      for (i = 0; i < states; ++i)
+      {
+        double terma = 0;
+        for (j = 0; j < states; ++j) { terma += lmat[j] * lclv[j]; }
+        lbclv[i] = terma;
+        lmat += states;
+      }
+      lbclv += states;
+      lclv += states;
+    }
+  }
+  /* compute CLV */
+  for (n = 0; n < parent_sites; ++n)
+  {
+    unsigned int site  = CORAX_GET_SITE(parent_id_site, n);
+    unsigned int lid   = CORAX_GET_ID(left_site_id, site);
+    unsigned int rid   = CORAX_GET_ID(right_site_id, site);
+    lbclv              = &bclv_buffer[lid * span];
+    const double *rclv = &right_clv[rid * span];
+    rmat               = right_matrix;
+    site_scale         = init_mask;
+
+    for (k = 0; k < rate_cats; ++k)
+    {
+      unsigned int rate_scale = 1;
+      for (i = 0; i < states; ++i)
+      {
+        double termb = 0;
+        for (j = 0; j < states; ++j) { termb += rmat[j] * rclv[j]; }
+        parent_clv[i] = lbclv[i] * termb;
+
+        rate_scale &= (parent_clv[i] < CORAX_SCALE_THRESHOLD);
+        rmat += states;
+      }
+
+      /* check if scaling is needed for the current rate category */
+      if (scale_mode == 2)
+      {
+        /* PER-RATE SCALING: if *all* entries of the *rate* CLV were below
+         * the threshold then scale (all) entries by CORAX_SCALE_FACTOR */
+        if (rate_scale)
+        {
+          for (i = 0; i < states; ++i) parent_clv[i] *= CORAX_SCALE_FACTOR;
+          parent_scaler[n * rate_cats + k] += 1;
+        }
+      }
+      else
+        site_scale = site_scale && rate_scale;
+
+      parent_clv += states;
+      lbclv += states;
+      rclv += states;
+    }
+    /* PER-SITE SCALING: if *all* entries of the *site* CLV were below
+     * the threshold then scale (all) entries by CORAX_SCALE_FACTOR */
+    if (site_scale)
+    {
+      parent_clv -= span;
+      for (i = 0; i < span; ++i) parent_clv[i] *= CORAX_SCALE_FACTOR;
+      parent_clv += span;
+      parent_scaler[n] += 1;
+    }
+  }
+}
+
+CORAX_EXPORT void corax_core_create_lookup_4x4(unsigned int  rate_cats,
+                                               double *      lookup,
+                                               const double *left_matrix,
+                                               const double *right_matrix)
+{
+  unsigned int i, j, k, n, m;
+  unsigned int maxstates = 16;
+  unsigned int states    = 4;
+  unsigned int index     = 0;
+
+  /* precompute first the entries that contain only one 1 */
+  double termj = 0;
+  double termk = 0;
+
+  const double *jmat;
+  const double *kmat;
+
+  /* go through all pairs j,k of states for the two tips; i is the inner
+     node state */
+  for (j = 0; j < maxstates; ++j)
+  {
+    for (k = 0; k < maxstates; ++k)
+    {
+      jmat = left_matrix;
+      kmat = right_matrix;
+
+      /* precompute the likelihood for each state and each rate */
+      for (n = 0; n < rate_cats; ++n)
+      {
+        for (i = 0; i < states; ++i)
+        {
+          termj = 0;
+          termk = 0;
+
+          unsigned int jstate = j;
+          unsigned int kstate = k;
+
+          /* decompose basecall into the encoded residues and set the
+             appropriate positions in the tip vector */
+          for (m = 0; m < states; ++m)
+          {
+            if (jstate & 1) termj += jmat[m];
+
+            if (kstate & 1) termk += kmat[m];
+
+            jstate >>= 1;
+            kstate >>= 1;
+          }
+
+          jmat += states;
+          kmat += states;
+          lookup[index++] = termj * termk;
+        }
+      }
+    }
+  }
+}
+
+CORAX_EXPORT void corax_core_create_lookup(unsigned int         states,
+                                           unsigned int         rate_cats,
+                                           double *             lookup,
+                                           const double *       left_matrix,
+                                           const double *       right_matrix,
+                                           const corax_state_t *tipmap,
+                                           unsigned int         tipmap_size,
+                                           unsigned int         attrib)
+{
+
+#ifdef HAVE_SSE3
+  if (attrib & CORAX_ATTRIB_ARCH_SSE && CORAX_HAS_CPU_FEATURE(sse3_present))
+  {
+    if (states == 4)
+      corax_core_create_lookup_4x4_sse(
+          rate_cats, lookup, left_matrix, right_matrix);
+    else
+      corax_core_create_lookup_sse(states,
+                                   rate_cats,
+                                   lookup,
+                                   left_matrix,
+                                   right_matrix,
+                                   tipmap,
+                                   tipmap_size);
+    return;
+  }
+#endif
+#ifdef HAVE_AVX
+  if (attrib & CORAX_ATTRIB_ARCH_AVX && CORAX_HAS_CPU_FEATURE(avx_present))
+  {
+    if (states == 4)
+      corax_core_create_lookup_4x4_avx(
+          rate_cats, lookup, left_matrix, right_matrix);
+    else
+      corax_core_create_lookup_avx(states,
+                                   rate_cats,
+                                   lookup,
+                                   left_matrix,
+                                   right_matrix,
+                                   tipmap,
+                                   tipmap_size);
+    return;
+  }
+#endif
+#ifdef HAVE_AVX2
+  if (attrib & CORAX_ATTRIB_ARCH_AVX2 && CORAX_HAS_CPU_FEATURE(avx2_present))
+  {
+    if (states == 4)
+      corax_core_create_lookup_4x4_avx(
+          rate_cats, lookup, left_matrix, right_matrix);
+    else
+      corax_core_create_lookup_avx(states,
+                                   rate_cats,
+                                   lookup,
+                                   left_matrix,
+                                   right_matrix,
+                                   tipmap,
+                                   tipmap_size);
+    return;
+  }
+#endif
+  if (states == 4)
+  {
+    corax_core_create_lookup_4x4(rate_cats, lookup, left_matrix, right_matrix);
+    return;
+  }
+
+  unsigned int i, j, k, n, m;
+  unsigned int index     = 0;
+  unsigned int maxstates = tipmap_size;
+
+  unsigned int log2_maxstates = (unsigned int)ceil(log2(maxstates));
+  unsigned int span           = states * rate_cats;
+
+  /* precompute first the entries that contain only one 1 */
+  double termj = 0;
+  double termk = 0;
+
+  const double *jmat;
+  const double *kmat;
+  double *      lh_statepair;
+
+  /* go through all pairs j,k of states for the two tips; i is the inner
+     node state */
+  for (j = 0; j < maxstates; ++j)
+  {
+    for (k = 0; k < maxstates; ++k)
+    {
+      jmat  = left_matrix;
+      kmat  = right_matrix;
+      index = 0;
+
+      /* find offset of state-pair in the precomputation table */
+      lh_statepair = lookup;
+      lh_statepair += ((j << log2_maxstates) + k) * span;
+
+      /* precompute the likelihood for each state and each rate */
+      for (n = 0; n < rate_cats; ++n)
+      {
+        for (i = 0; i < states; ++i)
+        {
+          termj = 0;
+          termk = 0;
+
+          corax_state_t jstate = tipmap[j];
+          corax_state_t kstate = tipmap[k];
+
+          /* decompose basecall into the encoded residues and set the
+             appropriate positions in the tip vector */
+          for (m = 0; m < states; ++m)
+          {
+            if (jstate & 1) termj += jmat[m];
+
+            if (kstate & 1) termk += kmat[m];
+
+            jstate >>= 1;
+            kstate >>= 1;
+          }
+
+          jmat += states;
+          kmat += states;
+          lh_statepair[index++] = termj * termk;
+        }
+      }
+    }
+  }
+}

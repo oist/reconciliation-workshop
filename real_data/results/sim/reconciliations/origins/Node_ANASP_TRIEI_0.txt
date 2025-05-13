@@ -1,0 +1,4 @@
+vertical: 17.96
+THEEB, 0.03
+SYNP2, 0.01
+Node_SYNJA_SYNJB_0, 0.01

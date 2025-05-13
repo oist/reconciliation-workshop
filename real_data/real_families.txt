@@ -1,0 +1,37 @@
+[FAMILIES]
+- HBG284369
+gene_tree = sc_univ_fams/HBG284369_real.fasta.ufboot
+- HBG284758
+gene_tree = sc_univ_fams/HBG284758_real.fasta.ufboot
+- HBG284990
+gene_tree = sc_univ_fams/HBG284990_real.fasta.ufboot
+- HBG285867
+gene_tree = sc_univ_fams/HBG285867_real.fasta.ufboot
+- HBG286705
+gene_tree = sc_univ_fams/HBG286705_real.fasta.ufboot
+- HBG286723
+gene_tree = sc_univ_fams/HBG286723_real.fasta.ufboot
+- HBG311214
+gene_tree = sc_univ_fams/HBG311214_real.fasta.ufboot
+- HBG354397
+gene_tree = sc_univ_fams/HBG354397_real.fasta.ufboot
+- HBG399638
+gene_tree = sc_univ_fams/HBG399638_real.fasta.ufboot
+- HBG467281
+gene_tree = sc_univ_fams/HBG467281_real.fasta.ufboot
+- HBG486560
+gene_tree = sc_univ_fams/HBG486560_real.fasta.ufboot
+- HBG497378
+gene_tree = sc_univ_fams/HBG497378_real.fasta.ufboot
+- HBG565931
+gene_tree = sc_univ_fams/HBG565931_real.fasta.ufboot
+- HBG571647
+gene_tree = sc_univ_fams/HBG571647_real.fasta.ufboot
+- HBG586599
+gene_tree = sc_univ_fams/HBG586599_real.fasta.ufboot
+- HBG594146
+gene_tree = sc_univ_fams/HBG594146_real.fasta.ufboot
+- HBG616165
+gene_tree = sc_univ_fams/HBG616165_real.fasta.ufboot
+- HBG621785
+gene_tree = sc_univ_fams/HBG621785_real.fasta.ufboot

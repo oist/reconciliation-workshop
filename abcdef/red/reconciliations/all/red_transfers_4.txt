@@ -1,5 +1,0 @@
-D A 1
-D B 1
-A F 1
-A Node_D_E_0 1
-A C 1

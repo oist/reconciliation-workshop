@@ -1,0 +1,4 @@
+vertical: 15.72
+Node_CYAP7_MICAN_0, 0.22
+Node_THEEB_ACAM1_0, 0.02
+Node_ANASP_NOSP7_0, 0.01

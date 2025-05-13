@@ -1,0 +1,5 @@
+vertical: 18
+Node_SYNPX_SYNS9_0, 0.25
+SYNS3, 0.13
+Node_SYNPW_SYNS3_0, 0.11
+SYNPX, 0.01

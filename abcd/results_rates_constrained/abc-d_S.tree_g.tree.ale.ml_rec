@@ -1,0 +1,33 @@
+#ALEml using ALE v1.0 by Szollosi GJ et al.; ssolo@elte.hu; CC BY-SA 3.0;
+
+S:	(((A:0.333333,B:0.333333)1:0.333333,C:0.666667)2:0.333333,D:1)3;
+
+
+Input ale from:	abc-d_S.tree_g.tree.ale
+>logl: -17.5092
+rate of	 Duplications	Transfers	Losses
+ML 	0	0.01	0.01
+
+10 reconciled G-s:
+
+(D_d2:1,(C_c2:1,(A_a1:1.5,(B_b1:2,(C_c1@0|C:1,D_d1:1)@0|DT@0|D:3)T@0|B:0.5).1:0.5).2:1).3:0;
+(D_d2:1,(C_c2:1,(A_a1:1.5,(B_b1:2,(C_c1@0|C:1,D_d1@0|D:1)T@0|-1:3)T@0|B:0.5).1:0.5).2:1).3:0;
+(D_d1:1,(C_c1:1,(B_b1:2,(A_a1:1.5,(C_c2@0|C:1,D_d2@0|D:1)T@0|-1:0.5)T@0|A:0.5).1:3).2:1).3:0;
+(D_d1:1,(C_c1:1,(B_b1:2,(A_a1:1.5,(C_c2@0|C:1,D_d2@0|D:1)T@0|-1:0.5)T@0|A:0.5).1:3).2:1).3:0;
+(D_d1:1,(C_c1:1,(B_b1:2,(A_a1:1.5,(C_c2@0|C:1,D_d2@0|D:1)T@0|-1:0.5)T@0|A:0.5).1:3).2:1).3:0;
+(D_d1:1,(C_c1:1,(B_b1:2,(A_a1:1.5,(C_c2@0|C:1,D_d2@0|D:1)T@0|-1:0.5)T@0|A:0.5).1:3).2:1).3:0;
+(D_d2:1,(C_c2:1,(A_a1:1.5,(B_b1:2,(C_c1@0|C:1,D_d1@0|D:1)T@0|-1:3)T@0|B:0.5).1:0.5).2:1).3:0;
+(D_d1:1,(C_c1:1,(B_b1:2,(A_a1:1.5,(C_c2@0|C:1,D_d2@0|D:1)T@0|-1:0.5)T@0|A:0.5).1:3).2:1).3:0;
+(D_d2:1,(C_c2:1,(A_a1:1.5,(B_b1:2,(C_c1:1,D_d1@0|D:1)@0|CT@0|C:3)T@0|B:0.5).1:0.5).2:1).3:0;
+(D_d1:1,(C_c1:1,(B_b1:2,(A_a1:1.5,(C_c2@0|C:1,D_d2@0|D:1)T@0|-1:0.5)T@0|A:0.5).1:3).2:1).3:0;
+# of	 Duplications	Transfers	Losses	Speciations
+Total 	0	2	0	3
+
+# of	 Duplications	Transfers	Losses	Originations	copies
+S_terminal_branch	A	0	0	0	1
+S_terminal_branch	B	0	0	0	1
+S_terminal_branch	C	0	1	0	2
+S_terminal_branch	D	0	1	0	2
+S_internal_branch	1	0	0	0	1
+S_internal_branch	2	0	0	0	1
+S_internal_branch	3	0	0	0	1

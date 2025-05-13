@@ -1,0 +1,3 @@
+vertical: 16.99
+Node_SYNJA_SYNJB_0, 0.09
+GLVIO1, 0.02

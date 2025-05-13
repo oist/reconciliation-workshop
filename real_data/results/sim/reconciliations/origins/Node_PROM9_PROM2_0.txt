@@ -1,0 +1,5 @@
+vertical: 18
+Node_PROM1_PROM9_0, 0.08
+Node_SYNR3_PROMM_0, 0.02
+Node_PRMAR1_PROM1_0, 0.02
+PRMAR1, 0.01

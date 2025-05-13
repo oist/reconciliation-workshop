@@ -1,0 +1,4 @@
+vertical: 18.01
+Node_CYAA5_SYNY3_0, 0.01
+Node_CYAA5_CYAP8_0, 0.01
+Node_CYAA5_CYAP7_0, 0.01

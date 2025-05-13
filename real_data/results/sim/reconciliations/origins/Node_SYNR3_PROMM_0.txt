@@ -1,0 +1,2 @@
+vertical: 15.92
+Node_CYAP7_MICAN_0, 0.09

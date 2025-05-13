@@ -1,0 +1,9 @@
+
+
+trees/10575.newick:   https://github.com/biocore/wol/blob/master/data/trees/astral/astral.nwk 
+
+trees/286.newick: http://ftp.ensembl.org/pub/release-100/compara/species_trees/vertebrates_species-tree_Ensembl.nh
+
+trees/94.newick, trees/128.newick: https://github.com/stamatak/test-Datasets
+
+

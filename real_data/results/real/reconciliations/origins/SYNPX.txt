@@ -1,0 +1,3 @@
+vertical: 18
+SYNSC, 0.32
+SYNS9, 0.01

@@ -1,0 +1,4 @@
+vertical: 17.75
+TRIEI, 0.31
+Node_ANASP_ANAVT_0, 0.01
+GLVIO1, 0.01

@@ -1,0 +1,53 @@
+[00:00:00] AleRax v1.2.0
+[00:00:00] AleRax was called as follow:
+../alerax --families Zuckerkandl-Pauling_OUT.families --species-tree data/HuHoCo_OUT.sptree --prefix Zuckerkandl-Pauling-OUT-fixed --gene-tree-samples 10 --seed 42 --rec-model UndatedDL --model-parametrization GLOBAL --fix-rates --d 0.01 --l 0.01 
+
+[00:00:00] Run settings:
+	Family file: Zuckerkandl-Pauling_OUT.families
+	Starting species tree: specified by user: data/HuHoCo_OUT.sptree
+	Output directory: Zuckerkandl-Pauling-OUT-fixed
+	You are running GeneRax without MPI (no parallelization)
+	Number of reconciled gene trees to sample: 10
+	Random seed: 42
+	Reconciliation model: UndatedDL
+	Model parametrization:  global to all species and families
+Rate optimizer: LBFGSB
+	Memory savings: OFF
+	Transfer constraints: transfers to parents are forbidden
+	Prune species mode is disabled
+	Gene tree rooting: all gene tree root positions are considered with the same probability
+	Origination strategy: gene families can originate from each species with the same probability
+	Species tree search: skipping species tree search
+	AleRax will exclude gene families covering less than 1 species
+
+[00:00:00] Generating ccp files...
+[00:00:00] Filtering families
+[00:00:00] Families: 1
+[00:00:00] Triming families covering less than 1 species 
+[00:00:00] Remaining families: 1
+[00:00:00] Initializing starting species tree...
+[00:00:00] Finished starting species tree initialization
+[00:00:00] Checking that ccp and mappings are valid...
+[00:00:00] Input data information:
+- Number of gene families: 1
+- Number of species: 4
+- Total number of genes: 7
+- Average number of genes per family: 7
+- Maximum number of genes per family: 7
+- Species covered with the smallest family coverage: "OUT" (covered by 1/1 families)
+- Average (over species) species family coverage: 1
+
+((Human:2.000000,(Horse:1.000000,Cow:1.000000)Node_Horse_Cow_0:1.000000)Node_Human_Horse_0:1.000000,OUT:4.000000)Node_Human_OUT_0:1.000000;
+[00:00:00] Initializing ccps and evaluators...
+[00:00:00] Initializing ccps finished
+[00:00:00] Total number of clades: 23
+[00:00:00] Load balancing: 1
+[00:00:00] Recommended maximum number of cores: 1
+[00:00:00] Initial ll=-39.1543
+[00:00:00] Sampling reconciled gene trees... (10 samples)
+[00:00:00] Sampling reconciliations...
+[00:00:00] Exporting reconciliations...
+[00:00:00] Exporting reconciliation summaries...
+[00:00:00] Reconciliations output directory: Zuckerkandl-Pauling-OUT-fixed/reconciliations
+[00:00:00] Final log likelihood: ll=-39.1543
+[00:00:00] End of the execution

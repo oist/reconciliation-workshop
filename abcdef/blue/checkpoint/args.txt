@@ -1,4 +1,0 @@
-mpiRanks:
-1
-command:
-alerax --families blue_families.txt --species-tree S.tree --prefix blue --gene-tree-samples 10 --seed 42 --rec-model UndatedDTL --model-parametrization GLOBAL
