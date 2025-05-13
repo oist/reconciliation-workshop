@@ -1,0 +1,3 @@
+[FAMILIES]
+- green
+gene_tree = green.tree

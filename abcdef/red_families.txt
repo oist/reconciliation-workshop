@@ -1,0 +1,3 @@
+[FAMILIES]
+- red
+gene_tree = red.tree

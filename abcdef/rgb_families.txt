@@ -1,0 +1,3 @@
+[FAMILIES]
+- rgb
+gene_tree = rgb.trees
