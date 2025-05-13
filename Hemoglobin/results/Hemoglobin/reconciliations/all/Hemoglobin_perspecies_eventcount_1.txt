@@ -1,0 +1,6 @@
+species_label, speciations, duplications, losses, transfers, presence, origination, copies, singletons
+Node_Horse_Cow_0, 1, 0, 0, 0, 1, 0, 1, 1
+Human, 3, 2, 0, 0, 1, 0, 3, 3
+Node_Human_Horse_0, 1, 0, 0, 0, 1, 1, 1, 1
+Cow, 2, 1, 0, 0, 1, 0, 2, 2
+Horse, 1, 0, 0, 0, 1, 0, 1, 1

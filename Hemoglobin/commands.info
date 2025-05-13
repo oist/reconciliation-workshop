@@ -1,0 +1,2 @@
+alerax --families Hemoglobin.families --species-tree data/HuHoCo.sptree  --prefix Hemoglobin --gene-tree-samples 10 --seed 42 --rec-model UndatedDL --model-parametrization GLOBAL
+alerax --families Zuckerkandl-Pauling.families --species-tree data/HuHoCo.sptree  --prefix Zuckerkandl-Pauling --gene-tree-samples 10 --seed 42 --rec-model UndatedDL --model-parametrization GLOBAL

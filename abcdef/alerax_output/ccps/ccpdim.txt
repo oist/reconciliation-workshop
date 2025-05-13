@@ -1,5 +1,0 @@
-fam, leaves, ccps
-rgb, 6, 29
-red, 6, 19
-green, 6, 19
-blue, 6, 19

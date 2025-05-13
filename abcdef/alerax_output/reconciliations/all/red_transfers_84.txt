@@ -1,3 +1,0 @@
-d Node_a_c_0 1
-d f 1
-d b 1

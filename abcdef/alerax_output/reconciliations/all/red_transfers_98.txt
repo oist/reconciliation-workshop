@@ -1,2 +1,0 @@
-Node_a_f_0 b 1
-Node_a_f_0 d 1

@@ -1,0 +1,111 @@
+[00:00:00] AleRax v1.2.0
+[00:00:00] AleRax was called as follow:
+alerax --families Zuckerkandl-Pauling.families --species-tree data/HuHoCo.sptree --prefix Zuckerkandl-Pauling --gene-tree-samples 10 --seed 42 --rec-model UndatedDL --model-parametrization GLOBAL 
+
+[00:00:00] Run settings:
+	Family file: Zuckerkandl-Pauling.families
+	Starting species tree: specified by user: data/HuHoCo.sptree
+	Output directory: Zuckerkandl-Pauling
+	MPI Ranks: 1
+	Number of reconciled gene trees to sample: 10
+	Random seed: 42
+	Reconciliation model: UndatedDL
+	Model parametrization:  global to all species and families
+Rate optimizer: LBFGSB
+	Memory savings: OFF
+	Transfer constraints: transfers to parents are forbidden
+	Prune species mode is disabled
+	Gene tree rooting: all gene tree root positions are considered with the same probability
+	Origination strategy: gene families can originate from each species with the same probability
+	Species tree search: skipping species tree search
+	AleRax will exclude gene families covering less than 1 species
+
+[00:00:00] Generating ccp files...
+[00:00:00] Filtering families
+[00:00:00] Families: 1
+[00:00:00] Triming families covering less than 1 species 
+[00:00:00] Remaining families: 1
+[00:00:00] Initializing starting species tree...
+[00:00:00] Finished starting species tree initialization
+[00:00:00] Checking that ccp and mappings are valid...
+[00:00:00] Input data information:
+- Number of gene families: 1
+- Number of species: 3
+- Total number of genes: 6
+- Average number of genes per family: 6
+- Maximum number of genes per family: 6
+- Species covered with the smallest family coverage: "Human" (covered by 1/1 families)
+- Average (over species) species family coverage: 1
+
+(Human:2.000000,(Horse:1.000000,Cow:1.000000)Node_Horse_Cow_0:1.000000)Node_Human_Horse_0:1.000000;
+[00:00:00] Initializing ccps and evaluators...
+[00:00:00] Initializing ccps finished
+[00:00:00] Total number of clades: 19
+[00:00:00] Load balancing: 1
+[00:00:00] Recommended maximum number of cores: 1
+[00:00:00] Initial ll=-15.6819
+[00:00:00] [Species search] Optimizing model rates (light)
+[00:00:00] Free parameters: 2
+[00:00:00] (0.1, 0.1, score = -15.6819)
+[00:00:00] (0.1, 0.1, score = -15.6819)
+[00:00:00] (0.1, 0.1, score = -15.6819)
+[00:00:00] (2, 2, score = -20.8218)
+[00:00:00] (2, 2, score = -20.8218)
+[00:00:00] (2, 2, score = -20.8218)
+[00:00:00] (0.65557, 0.65557, score = -15.4779)
+[00:00:00] (0.65557, 0.65557, score = -15.4779)
+[00:00:00] (0.65557, 0.65557, score = -15.4779)
+[00:00:00] (0.593378, 0.542692, score = -15.0795)
+[00:00:00] (0.593378, 0.542692, score = -15.0795)
+[00:00:00] (0.593378, 0.542692, score = -15.0795)
+[00:00:00] (0.344609, 0.0911779, score = -14.8734)
+[00:00:00] (0.344609, 0.0911779, score = -14.8734)
+[00:00:00] (0.344609, 0.0911779, score = -14.8734)
+[00:00:00] (0.538253, 0.442641, score = -14.7516)
+[00:00:00] (0.538253, 0.442641, score = -14.7516)
+[00:00:00] (0.538253, 0.442641, score = -14.7516)
+[00:00:00] (1e-10, 1e-10, score = -116.739)
+[00:00:00] (2e-10, 1e-10, score = -114.659)
+[00:00:00] (1e-10, 2e-10, score = -115.352)
+[00:00:00] (0.356253, 0.29297, score = -14.228)
+[00:00:00] (0.356253, 0.29297, score = -14.228)
+[00:00:00] (0.356253, 0.29297, score = -14.228)
+[00:00:00] (1e-10, 1e-10, score = -116.739)
+[00:00:00] (2e-10, 1e-10, score = -114.659)
+[00:00:00] (1e-10, 2e-10, score = -115.352)
+[00:00:00] (0.237022, 0.194919, score = -14.2713)
+[00:00:00] (0.237022, 0.194919, score = -14.2713)
+[00:00:00] (0.237022, 0.194919, score = -14.2713)
+[00:00:00] (0.304249, 0.250204, score = -14.1818)
+[00:00:00] (0.304249, 0.250204, score = -14.1818)
+[00:00:00] (0.304249, 0.250204, score = -14.1818)
+[00:00:00] (0.310646, 0.232699, score = -14.1817)
+[00:00:00] (0.310646, 0.232699, score = -14.1817)
+[00:00:00] (0.310646, 0.232699, score = -14.1817)
+[00:00:00] (0.307388, 0.241615, score = -14.1803)
+[00:00:00] (0.307388, 0.241615, score = -14.1803)
+[00:00:00] (0.307388, 0.241615, score = -14.1803)
+[00:00:00] (0.306209, 0.240668, score = -14.1803)
+[00:00:00] (0.306209, 0.240668, score = -14.1803)
+[00:00:00] (0.306209, 0.240668, score = -14.1803)
+[00:00:00] (0.306444, 0.240822, score = -14.1803)
+[00:00:00] (0.306444, 0.240822, score = -14.1803)
+[00:00:00] (0.306444, 0.240822, score = -14.1803)
+[00:00:00] (0.306444, 0.240822, score = -14.1803)
+[00:00:00] optx = (0.306444, 0.240822, score = -14.1803)
+[00:00:00] [Species search]   After model rate opt, ll=-14.1803
+[00:00:00] [Species search] Optimizing model rates (thorough)
+[00:00:00] Free parameters: 2
+[00:00:00] (0.306444, 0.240822, score = -14.1803)
+[00:00:00] (0.306444, 0.240822, score = -14.1803)
+[00:00:00] (0.306444, 0.240822, score = -14.1803)
+[00:00:00] (0.306444, 0.240822, score = -14.1803)
+[00:00:00] optx = (0.306444, 0.240822, score = -14.1803)
+[00:00:00] [Species search]   After model rate opt, ll=-14.1803
+[00:00:00] Sampling reconciled gene trees... (10 samples)
+[00:00:00] Sampling reconciliations...
+[00:00:00] Exporting reconciliations...
+[00:00:00] Exporting reconciliation summaries...
+[00:00:00] Reconciliations output directory: Zuckerkandl-Pauling/reconciliations
+[00:00:00] Final log likelihood: ll=-14.1803
+[00:00:00] End of the execution

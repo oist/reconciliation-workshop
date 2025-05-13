@@ -1,0 +1,94 @@
+<recPhylo 
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.recg.org ./recGeneTreeXML.xsd"
+	xmlns="http://www.recg.org">
+<spTree>
+<phylogeny>
+<clade>
+		<name>Node_Human_Horse_0</name>
+	<clade>
+			<name>Human</name>
+	</clade>
+	<clade>
+			<name>Node_Horse_Cow_0</name>
+		<clade>
+				<name>Horse</name>
+		</clade>
+		<clade>
+				<name>Cow</name>
+		</clade>
+	</clade>
+</clade>
+</phylogeny>
+</spTree>
+<recGeneTree>
+<phylogeny rooted="true">
+<clade>
+	<name>NULL</name>
+	<eventsRec>
+		<speciation speciesLocation="Node_Human_Horse_0"/>
+	</eventsRec>
+	<clade>
+		<name>NULL</name>
+		<eventsRec>
+			<duplication speciesLocation="Human"/>
+		</eventsRec>
+		<clade>
+			<name>Human_gamma</name>
+			<eventsRec>
+				<leaf speciesLocation="Human"/>
+			</eventsRec>
+		</clade>
+		<clade>
+			<name>NULL</name>
+			<eventsRec>
+				<duplication speciesLocation="Human"/>
+			</eventsRec>
+			<clade>
+				<name>Human_beta</name>
+				<eventsRec>
+					<leaf speciesLocation="Human"/>
+				</eventsRec>
+			</clade>
+			<clade>
+				<name>Human_delta</name>
+				<eventsRec>
+					<leaf speciesLocation="Human"/>
+				</eventsRec>
+			</clade>
+		</clade>
+	</clade>
+	<clade>
+		<name>NULL</name>
+		<eventsRec>
+			<speciation speciesLocation="Node_Horse_Cow_0"/>
+		</eventsRec>
+		<clade>
+			<name>Horse_beta-delta</name>
+			<eventsRec>
+				<leaf speciesLocation="Horse"/>
+			</eventsRec>
+		</clade>
+		<clade>
+			<name>NULL</name>
+			<eventsRec>
+				<duplication speciesLocation="Cow"/>
+			</eventsRec>
+			<clade>
+				<name>Cow_gamma</name>
+				<eventsRec>
+					<leaf speciesLocation="Cow"/>
+				</eventsRec>
+			</clade>
+			<clade>
+				<name>Cow_beta-delta</name>
+				<eventsRec>
+					<leaf speciesLocation="Cow"/>
+				</eventsRec>
+			</clade>
+		</clade>
+	</clade>
+</clade>
+</phylogeny>
+</recGeneTree>
+</recPhylo>

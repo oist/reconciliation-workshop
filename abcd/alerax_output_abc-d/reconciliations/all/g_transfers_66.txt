@@ -1,3 +1,0 @@
-Node_a_c_0 d 1
-a d 1
-d c 1

@@ -1,4 +1,0 @@
-b Node_d_e_0 1
-Node_d_e_0 c 1
-d f 1
-d b 1

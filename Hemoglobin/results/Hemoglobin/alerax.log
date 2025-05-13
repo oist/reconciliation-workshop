@@ -1,0 +1,90 @@
+[00:00:00] AleRax v1.2.0
+[00:00:00] AleRax was called as follow:
+alerax --families Hemoglobin.families --species-tree data/HuHoCo.sptree --prefix Hemoglobin --gene-tree-samples 10 --seed 42 --rec-model UndatedDL --model-parametrization GLOBAL 
+
+[00:00:00] Run settings:
+	Family file: Hemoglobin.families
+	Starting species tree: specified by user: data/HuHoCo.sptree
+	Output directory: Hemoglobin
+	MPI Ranks: 1
+	Number of reconciled gene trees to sample: 10
+	Random seed: 42
+	Reconciliation model: UndatedDL
+	Model parametrization:  global to all species and families
+Rate optimizer: LBFGSB
+	Memory savings: OFF
+	Transfer constraints: transfers to parents are forbidden
+	Prune species mode is disabled
+	Gene tree rooting: all gene tree root positions are considered with the same probability
+	Origination strategy: gene families can originate from each species with the same probability
+	Species tree search: skipping species tree search
+	AleRax will exclude gene families covering less than 1 species
+
+[00:00:00] Generating ccp files...
+[00:00:00] Filtering families
+[00:00:00] Families: 1
+[00:00:00] Triming families covering less than 1 species 
+[00:00:00] Remaining families: 1
+[00:00:00] Initializing starting species tree...
+[00:00:00] Finished starting species tree initialization
+[00:00:00] Checking that ccp and mappings are valid...
+[00:00:00] Input data information:
+- Number of gene families: 1
+- Number of species: 3
+- Total number of genes: 6
+- Average number of genes per family: 6
+- Maximum number of genes per family: 6
+- Species covered with the smallest family coverage: "Human" (covered by 1/1 families)
+- Average (over species) species family coverage: 1
+
+(Human:2.000000,(Horse:1.000000,Cow:1.000000)Node_Horse_Cow_0:1.000000)Node_Human_Horse_0:1.000000;
+[00:00:00] Initializing ccps and evaluators...
+[00:00:00] Initializing ccps finished
+[00:00:00] Total number of clades: 19
+[00:00:00] Load balancing: 1
+[00:00:00] Recommended maximum number of cores: 1
+[00:00:00] Initial ll=-10.2771
+[00:00:00] [Species search] Optimizing model rates (light)
+[00:00:00] Free parameters: 2
+[00:00:00] (0.1, 0.1, score = -10.2771)
+[00:00:00] (0.1, 0.1, score = -10.2771)
+[00:00:00] (0.1, 0.1, score = -10.2771)
+[00:00:00] (2, 1e-10, score = -11.6147)
+[00:00:00] (2, 1e-10, score = -11.6147)
+[00:00:00] (2, 2e-10, score = -11.6147)
+[00:00:00] (0.721494, 0.0672898, score = -8.90152)
+[00:00:00] (0.721494, 0.0672898, score = -8.90152)
+[00:00:00] (0.721494, 0.0672898, score = -8.90152)
+[00:00:00] (0.662297, 1e-10, score = -8.43577)
+[00:00:00] (0.662297, 1e-10, score = -8.43577)
+[00:00:00] (0.662297, 2e-10, score = -8.43577)
+[00:00:00] (0.604687, 1e-10, score = -8.32079)
+[00:00:00] (0.604687, 1e-10, score = -8.32079)
+[00:00:00] (0.604687, 2e-10, score = -8.32079)
+[00:00:00] (0.374249, 1e-10, score = -8.05492)
+[00:00:00] (0.374249, 1e-10, score = -8.05492)
+[00:00:00] (0.374249, 2e-10, score = -8.05492)
+[00:00:00] (0.375845, 1e-10, score = -8.05492)
+[00:00:00] (0.375845, 1e-10, score = -8.05492)
+[00:00:00] (0.375845, 2e-10, score = -8.05492)
+[00:00:00] (0.375001, 1e-10, score = -8.05492)
+[00:00:00] (0.375001, 1e-10, score = -8.05492)
+[00:00:00] (0.375001, 2e-10, score = -8.05492)
+[00:00:00] (0.375001, 1e-10, score = -8.05492)
+[00:00:00] optx = (0.375001, 1e-10, score = -8.05492)
+[00:00:00] [Species search]   After model rate opt, ll=-8.05492
+[00:00:00] [Species search] Optimizing model rates (thorough)
+[00:00:00] Free parameters: 2
+[00:00:00] (0.375001, 1e-10, score = -8.05492)
+[00:00:00] (0.375001, 1e-10, score = -8.05492)
+[00:00:00] (0.375001, 2e-10, score = -8.05492)
+[00:00:00] (0.375001, 1e-10, score = -8.05492)
+[00:00:00] optx = (0.375001, 1e-10, score = -8.05492)
+[00:00:00] [Species search]   After model rate opt, ll=-8.05492
+[00:00:00] Sampling reconciled gene trees... (10 samples)
+[00:00:00] Sampling reconciliations...
+[00:00:00] Exporting reconciliations...
+[00:00:00] Exporting reconciliation summaries...
+[00:00:00] Reconciliations output directory: Hemoglobin/reconciliations
+[00:00:00] Final log likelihood: ll=-8.05492
+[00:00:00] End of the execution

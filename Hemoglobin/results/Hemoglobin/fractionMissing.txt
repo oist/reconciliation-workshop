@@ -1,0 +1,4 @@
+SPECIES: FAMILY_COVERAGE
+Cow: 1
+Horse: 1
+Human: 1
