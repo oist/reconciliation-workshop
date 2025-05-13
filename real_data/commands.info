@@ -1,3 +1,6 @@
 ../alerax --families real_families.txt --species-tree S.tree  --prefix real --gene-tree-samples 100 --seed 42 --rec-model UndatedDTL --model-parametrization GLOBAL
 ../alerax --families sim_families.txt --species-tree S.tree  --prefix sim --gene-tree-samples 100 --seed 42 --rec-model UndatedDTL --model-parametrization GLOBAL
 
+../alerax --families HBG486560_true.families --species-tree S.tree  --prefix true --gene-tree-samples 100 --seed 42 --rec-model UndatedDTL --model-parametrization GLOBAL
+../alerax --families HBG486560_ML.families --species-tree S.tree  --prefix ml --gene-tree-samples 100 --seed 42 --rec-model UndatedDTL --model-parametrization GLOBAL
+../alerax --families HBG486560_ufboot.families --species-tree S.tree  --prefix ufboot --gene-tree-samples 100 --seed 42 --rec-model UndatedDTL --model-parametrization GLOBAL

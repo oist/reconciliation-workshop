@@ -1,0 +1,2 @@
+vertical: 0.99
+Node_SYNR3_SYNE7_0, 0.01
