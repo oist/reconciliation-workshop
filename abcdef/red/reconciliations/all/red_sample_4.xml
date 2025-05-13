@@ -44,116 +44,53 @@
 <clade>
 	<name>NULL</name>
 	<eventsRec>
-		<duplication speciesLocation="Node_A_F_0"/>
+		<branchingOut speciesLocation="D"/>
 	</eventsRec>
 	<clade>
 		<name>NULL</name>
 		<eventsRec>
-			<speciation speciesLocation="Node_A_F_0"/>
+			<branchingOut speciesLocation="D"/>
 		</eventsRec>
 		<clade>
-			<name>NULL</name>
+			<name>D_d</name>
 			<eventsRec>
-				<speciation speciesLocation="Node_A_D_0"/>
+				<leaf speciesLocation="D"/>
 			</eventsRec>
-			<clade>
-				<name>NULL</name>
-				<eventsRec>
-					<speciation speciesLocation="Node_A_C_0"/>
-				</eventsRec>
-					<clade>
-					<name>loss</name>
-					<eventsRec>
-						<loss speciesLocation="C"/>
-					</eventsRec>
-				</clade>
-				<clade>
-					<name>NULL</name>
-					<eventsRec>
-						<speciation speciesLocation="Node_A_B_0"/>
-					</eventsRec>
-						<clade>
-						<name>loss</name>
-						<eventsRec>
-							<loss speciesLocation="A"/>
-						</eventsRec>
-					</clade>
-					<clade>
-						<name>B_b</name>
-						<eventsRec>
-							<leaf speciesLocation="B"/>
-						</eventsRec>
-					</clade>
-				</clade>
-			</clade>
-			<clade>
-				<name>NULL</name>
-				<eventsRec>
-					<speciation speciesLocation="Node_D_E_0"/>
-				</eventsRec>
-					<clade>
-					<name>loss</name>
-					<eventsRec>
-						<loss speciesLocation="E"/>
-					</eventsRec>
-				</clade>
-				<clade>
-					<name>D_d</name>
-					<eventsRec>
-						<leaf speciesLocation="D"/>
-					</eventsRec>
-				</clade>
-			</clade>
 		</clade>
 		<clade>
-			<name>F_f</name>
+			<name>B_b</name>
 			<eventsRec>
-				<leaf speciesLocation="F"/>
+				<transferBack destinationSpecies="B"/>
+				<leaf speciesLocation="B"/>
 			</eventsRec>
 		</clade>
 	</clade>
 	<clade>
 		<name>NULL</name>
 		<eventsRec>
-			<speciation speciesLocation="Node_A_F_0"/>
+			<transferBack destinationSpecies="A"/>
+			<branchingOut speciesLocation="A"/>
 		</eventsRec>
-			<clade>
-			<name>loss</name>
-			<eventsRec>
-				<loss speciesLocation="F"/>
-			</eventsRec>
-		</clade>
 		<clade>
 			<name>NULL</name>
 			<eventsRec>
-				<speciation speciesLocation="Node_A_D_0"/>
+				<branchingOut speciesLocation="A"/>
 			</eventsRec>
 			<clade>
 				<name>NULL</name>
 				<eventsRec>
-					<speciation speciesLocation="Node_A_C_0"/>
+					<branchingOut speciesLocation="A"/>
 				</eventsRec>
 				<clade>
-					<name>NULL</name>
+					<name>A_a</name>
 					<eventsRec>
-						<speciation speciesLocation="Node_A_B_0"/>
+						<leaf speciesLocation="A"/>
 					</eventsRec>
-						<clade>
-						<name>loss</name>
-						<eventsRec>
-							<loss speciesLocation="B"/>
-						</eventsRec>
-					</clade>
-					<clade>
-						<name>A_a</name>
-						<eventsRec>
-							<leaf speciesLocation="A"/>
-						</eventsRec>
-					</clade>
 				</clade>
 				<clade>
 					<name>C_c</name>
 					<eventsRec>
+						<transferBack destinationSpecies="C"/>
 						<leaf speciesLocation="C"/>
 					</eventsRec>
 				</clade>
@@ -161,6 +98,7 @@
 			<clade>
 				<name>NULL</name>
 				<eventsRec>
+					<transferBack destinationSpecies="Node_D_E_0"/>
 					<speciation speciesLocation="Node_D_E_0"/>
 				</eventsRec>
 					<clade>
@@ -176,6 +114,13 @@
 					</eventsRec>
 				</clade>
 			</clade>
+		</clade>
+		<clade>
+			<name>F_f</name>
+			<eventsRec>
+				<transferBack destinationSpecies="F"/>
+				<leaf speciesLocation="F"/>
+			</eventsRec>
 		</clade>
 	</clade>
 </clade>

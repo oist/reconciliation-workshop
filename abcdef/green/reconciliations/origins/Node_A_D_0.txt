@@ -1,1 +1,1 @@
-vertical: 1.2
+vertical: 0

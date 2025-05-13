@@ -1,1 +1,2 @@
-vertical: 2
+vertical: 0.8
+B, 0.6

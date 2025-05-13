@@ -1,6 +1,6 @@
 [00:00:00] AleRax v1.3.0
 [00:00:00] AleRax was called as follows:
-alerax --families green_families.txt --species-tree S.tree --prefix green --gene-tree-samples 10 --seed 42 --rec-model UndatedDL --model-parametrization GLOBAL
+alerax --families green_families.txt --species-tree S.tree --prefix green --gene-tree-samples 10 --seed 42 --rec-model UndatedDTL --model-parametrization GLOBAL
 
 [00:00:00] Run settings:
 	Output directory: green
@@ -8,7 +8,7 @@ alerax --families green_families.txt --species-tree S.tree --prefix green --gene
 	Starting species tree: will be imported from the user file: S.tree
 	MPI Ranks: 1
 	Random seed: 42
-	Reconciliation model: UndatedDL
+	Reconciliation model: UndatedDTL
 	Transfer constraint: transfers to parents are forbidden
 	Memory savings: OFF
 	Model parametrization: rates are global to all species and families
@@ -40,7 +40,7 @@ alerax --families green_families.txt --species-tree S.tree --prefix green --gene
 [00:00:00] Total number of clades: 19
 [00:00:00] Load balancing: 1
 [00:00:00] Recommended maximum number of cores: 1
-[00:00:00] Initial ll=-14.3896
+[00:00:00] Initial ll=-8.72101
 
 [00:00:00] Start the species tree optimization...
 
@@ -50,15 +50,15 @@ alerax --families green_families.txt --species-tree S.tree --prefix green --gene
 [00:00:00] Final species tree topology: green/species_trees/inferred_species_tree.newick
 
 [00:00:00] Final model rate optimization, non-thorough...
-[00:00:00] [Species search] Optimizing model rates (light), ll=-14.3896
-[00:00:00] [Species search]   Free parameters: 2
-[00:00:00] [Species search]   After model rate opt, ll=-13.2327
+[00:00:00] [Species search] Optimizing model rates (light), ll=-8.72101
+[00:00:00] [Species search]   Free parameters: 3
+[00:00:00] [Species search]   After model rate opt, ll=-7.35853
 
 [00:00:00] Final model rate optimization, thorough...
-[00:00:00] [Species search] Optimizing model rates (thorough), ll=-13.2327
-[00:00:00] [Species search]   Free parameters: 2
-[00:00:00] [Species search]   After model rate opt, ll=-13.2327
-[00:00:00] Final species tree likelihood: ll=-13.2327
+[00:00:00] [Species search] Optimizing model rates (thorough), ll=-7.35853
+[00:00:00] [Species search]   Free parameters: 3
+[00:00:00] [Species search]   After model rate opt, ll=-7.35853
+[00:00:00] Final species tree likelihood: ll=-7.35853
 
 [00:00:00] Reconciling gene trees with the species tree...
 [00:00:00] [Reconciliation] Sampling reconciled gene trees (10 samples per gene family)

@@ -1,1 +1,4 @@
-vertical: 2
+vertical: 0.6
+B, 0.2
+Node_A_B_0, 0.1
+A, 0.1

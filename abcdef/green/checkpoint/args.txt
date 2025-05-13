@@ -1,4 +1,4 @@
 mpiRanks:
 1
 command:
-alerax --families green_families.txt --species-tree S.tree --prefix green --gene-tree-samples 10 --seed 42 --rec-model UndatedDL --model-parametrization GLOBAL
+alerax --families green_families.txt --species-tree S.tree --prefix green --gene-tree-samples 10 --seed 42 --rec-model UndatedDTL --model-parametrization GLOBAL
