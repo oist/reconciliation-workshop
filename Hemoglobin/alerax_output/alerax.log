@@ -1,0 +1,33 @@
+[00:00:00] AleRax v1.2.0
+[00:00:00] AleRax was called as follow:
+../alerax --families Hemoglobin.families 
+
+[00:00:00] Run settings:
+	Family file: Hemoglobin.families
+	Starting species tree: specified by user: 
+	Output directory: alerax_output
+	MPI Ranks: 1
+	Number of reconciled gene trees to sample: 100
+	Random seed: 123
+	Reconciliation model: UndatedDTL
+	Model parametrization:  global to all species and families
+Rate optimizer: LBFGSB
+	Memory savings: OFF
+	Transfer constraints: transfers to parents are forbidden
+	Prune species mode is disabled
+	Gene tree rooting: all gene tree root positions are considered with the same probability
+	Origination strategy: gene families can originate from each species with the same probability
+	Species tree search: skipping species tree search
+	AleRax will exclude gene families covering less than 1 species
+
+[00:00:00] Generating ccp files...
+[00:00:00] Filtering families
+[00:00:00] Families: 1
+[00:00:00] Triming families covering less than 1 species 
+[00:00:00] Remaining families: 1
+[00:00:00] Initializing starting species tree...
+Error while trying to parse the species tree:
+Error while reading rooted tree from file .
+Error name: FILE_DOES_NOT_EXISTS.
+Error help message: File does not exist.
+The parsing error was detected at character 4294967295.

@@ -1,0 +1,5 @@
+Human 0.375001 1e-10
+Horse 0.375001 1e-10
+Cow 0.375001 1e-10
+Node_Horse_Cow_0 0.375001 1e-10
+Node_Human_Horse_0 0.375001 1e-10
