@@ -1,0 +1,3 @@
+vertical: 1
+SYNPX, 0.06
+SYNS9, 0.01

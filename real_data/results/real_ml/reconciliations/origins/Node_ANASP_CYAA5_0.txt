@@ -1,0 +1,4 @@
+vertical: 0.64
+Node_SYNE7_SYNP6_0, 0.35
+Node_ANASP_THEEB_0, 0.01
+CYAP4, 0.01

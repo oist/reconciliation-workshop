@@ -1,0 +1,2 @@
+vertical: 1
+Node_SYNPW_SYNS3_0, 0.08

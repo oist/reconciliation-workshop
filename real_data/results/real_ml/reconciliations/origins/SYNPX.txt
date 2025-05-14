@@ -1,0 +1,2 @@
+vertical: 0.34
+SYNSC, 0.74

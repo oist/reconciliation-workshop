@@ -1,0 +1,3 @@
+vertical: 1
+Node_SYNJA_SYNJB_0, 0.01
+Node_SYNJA_GLVIO1_0, 0.01

@@ -4,3 +4,4 @@
 ../alerax --families HBG486560_true.families --species-tree S.tree  --prefix true --gene-tree-samples 100 --seed 42 --rec-model UndatedDTL --model-parametrization GLOBAL
 ../alerax --families HBG486560_ML.families --species-tree S.tree  --prefix ml --gene-tree-samples 100 --seed 42 --rec-model UndatedDTL --model-parametrization GLOBAL
 ../alerax --families HBG486560_ufboot.families --species-tree S.tree  --prefix ufboot --gene-tree-samples 100 --seed 42 --rec-model UndatedDTL --model-parametrization GLOBAL
+cat real_ufboot/reconciliations/perspecies_eventcount.txt | sed -E 's/\s+//g'| sed 's/,/ /g' | awk 'BEGIN{S=0;D=0;L=0;T=0;P=0;O=0;C=0;Si=0}; {S+=;D+=;L+=;T+=;P+=;O+=;C+=;Si+=} END{print S,D,L,T,P,O,C,Si}' 

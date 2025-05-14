@@ -1,0 +1,2 @@
+vertical: 0.64
+Node_ANASP_TRIEI_0, 0.39

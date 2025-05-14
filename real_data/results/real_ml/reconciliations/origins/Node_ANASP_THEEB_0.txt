@@ -1,0 +1,2 @@
+vertical: 0.11
+Node_SYNE7_SYNP6_0, 0.02

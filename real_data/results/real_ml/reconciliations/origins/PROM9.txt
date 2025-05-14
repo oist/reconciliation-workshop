@@ -1,0 +1,2 @@
+vertical: 1
+Node_PROMM_SYNPW_0, 0.01

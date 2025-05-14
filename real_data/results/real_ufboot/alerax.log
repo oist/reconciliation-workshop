@@ -1,0 +1,135 @@
+[00:00:00] AleRax v1.2.0
+[00:00:00] AleRax was called as follow:
+../alerax --families HBG486560_real_ufboot.families --species-tree S.tree --prefix real_ufboot --gene-tree-samples 100 --seed 42 --rec-model UndatedDTL --model-parametrization GLOBAL 
+
+[00:00:00] Run settings:
+	Family file: HBG486560_real_ufboot.families
+	Starting species tree: specified by user: S.tree
+	Output directory: real_ufboot
+	You are running GeneRax without MPI (no parallelization)
+	Number of reconciled gene trees to sample: 100
+	Random seed: 42
+	Reconciliation model: UndatedDTL
+	Model parametrization:  global to all species and families
+Rate optimizer: LBFGSB
+	Memory savings: OFF
+	Transfer constraints: transfers to parents are forbidden
+	Prune species mode is disabled
+	Gene tree rooting: all gene tree root positions are considered with the same probability
+	Origination strategy: gene families can originate from each species with the same probability
+	Species tree search: skipping species tree search
+	AleRax will exclude gene families covering less than 1 species
+
+[00:00:00] Generating ccp files...
+[00:00:01] Filtering families
+[00:00:01] Families: 1
+[00:00:01] Triming families covering less than 1 species 
+[00:00:01] Remaining families: 1
+[00:00:01] Initializing starting species tree...
+[00:00:01] Finished starting species tree initialization
+[00:00:01] Checking that ccp and mappings are valid...
+[00:00:01] Input data information:
+- Number of gene families: 1
+- Number of species: 36
+- Total number of genes: 36
+- Average number of genes per family: 36
+- Maximum number of genes per family: 36
+- Species covered with the smallest family coverage: "SYNJB" (covered by 1/1 families)
+- Average (over species) species family coverage: 1
+
+((((((ANASP:0.171429,ANAVT:0.171429)Node_ANASP_ANAVT_0:0.342857,NOSP7:0.514286)Node_ANASP_NOSP7_0:0.371429,TRIEI:0.885714)Node_ANASP_TRIEI_0:0.028571,((((CYAA5:0.428571,CYAP8:0.428571)Node_CYAA5_CYAP8_0:0.285714,(CYAP7:0.685714,MICAN:0.685714)Node_CYAP7_MICAN_0:0.028571)Node_CYAA5_CYAP7_0:0.114286,SYNY3:0.828571)Node_CYAA5_SYNY3_0:0.028571,SYNP2:0.857143)Node_CYAA5_SYNP2_0:0.057143)Node_ANASP_CYAA5_0:0.028571,((THEEB:0.742857,CYAP4:0.742857)Node_THEEB_CYAP4_0:0.028571,ACAM1:0.771429)Node_THEEB_ACAM1_0:0.171429)Node_ANASP_THEEB_0:0.057143,(((SYNR3:0.657143,(((PROMM:0.114286,PROM3:0.114286)Node_PROMM_PROM3_0:0.485714,((PRMAR1:0.400000,PROM4:0.400000)Node_PRMAR1_PROM4_0:0.085714,((PROM1:0.057143,PROMT:0.057143)Node_PROM1_PROMT_0:0.400000,((PROM9:0.257143,(PROM2:0.228571,(PROM0:0.200000,PROMS:0.200000)Node_PROM0_PROMS_0:0.028571)Node_PROM2_PROM0_0:0.028571)Node_PROM9_PROM2_0:0.028571,(PROM5:0.142857,PROMP:0.142857)Node_PROM5_PROMP_0:0.142857)Node_PROM9_PROM5_0:0.171429)Node_PROM1_PROM9_0:0.028571)Node_PRMAR1_PROM1_0:0.114286)Node_PROMM_PRMAR1_0:0.028571,((SYNPW:0.314286,SYNS3:0.314286)Node_SYNPW_SYNS3_0:0.228571,(SYNPX:0.371429,(SYNS9:0.342857,SYNSC:0.342857)Node_SYNS9_SYNSC_0:0.028571)Node_SYNPX_SYNS9_0:0.171429)Node_SYNPW_SYNPX_0:0.085714)Node_PROMM_SYNPW_0:0.028571)Node_SYNR3_PROMM_0:0.142857,(SYNE7:0.028571,SYNP6:0.028571)Node_SYNE7_SYNP6_0:0.771429)Node_SYNR3_SYNE7_0:0.171429,((SYNJA:0.085714,SYNJB:0.085714)Node_SYNJA_SYNJB_0:0.485714,GLVIO1:0.571429)Node_SYNJA_GLVIO1_0:0.400000)Node_SYNR3_SYNJA_0:0.028571)Node_ANASP_SYNR3_0:1.000000;
+[00:00:01] Initializing ccps and evaluators...
+[00:00:01] Initializing ccps finished
+[00:00:01] Total number of clades: 337
+[00:00:01] Load balancing: 1
+[00:00:01] Recommended maximum number of cores: 1
+[00:00:01] Initial ll=-44.5526
+[00:00:01] [Species search] Optimizing model rates (light)
+[00:00:01] Free parameters: 3
+[00:00:01] (0.1, 0.1, 0.1, score = -44.5526)
+[00:00:01] (0.1, 0.1, 0.1, score = -44.5526)
+[00:00:01] (0.1, 0.1, 0.1, score = -44.5526)
+[00:00:01] (0.1, 0.1, 0.1, score = -44.5526)
+[00:00:01] (1e-10, 1e-10, 1e-10, score = -54.6913)
+[00:00:01] (2e-10, 1e-10, 1e-10, score = -54.6913)
+[00:00:01] (1e-10, 2e-10, 1e-10, score = -54.6913)
+[00:00:01] (1e-10, 1e-10, 2e-10, score = -53.9981)
+[00:00:01] (0.0524088, 0.0524088, 0.0524088, score = -37.939)
+[00:00:01] (0.0524088, 0.0524088, 0.0524088, score = -37.939)
+[00:00:01] (0.0524088, 0.0524088, 0.0524088, score = -37.939)
+[00:00:01] (0.0524088, 0.0524088, 0.0524088, score = -37.939)
+[00:00:01] (0.0174696, 0.0174696, 0.0174696, score = -33.4899)
+[00:00:01] (0.0174696, 0.0174696, 0.0174696, score = -33.4899)
+[00:00:01] (0.0174696, 0.0174696, 0.0174696, score = -33.4899)
+[00:00:01] (0.0174696, 0.0174696, 0.0174696, score = -33.4899)
+[00:00:01] (1e-10, 1e-10, 1e-10, score = -54.6913)
+[00:00:01] (2e-10, 1e-10, 1e-10, score = -54.6913)
+[00:00:01] (1e-10, 2e-10, 1e-10, score = -54.6913)
+[00:00:01] (1e-10, 1e-10, 2e-10, score = -53.9981)
+[00:00:01] (0.0113507, 0.0113507, 0.0113507, score = -33.0974)
+[00:00:01] (0.0113507, 0.0113507, 0.0113507, score = -33.0974)
+[00:00:01] (0.0113507, 0.0113507, 0.0113507, score = -33.0974)
+[00:00:01] (0.0113507, 0.0113507, 0.0113507, score = -33.0974)
+[00:00:01] (1e-10, 2, 2, score = -124.191)
+[00:00:01] (2e-10, 2, 2, score = -124.191)
+[00:00:01] (1e-10, 2, 2, score = -124.191)
+[00:00:01] (1e-10, 2, 2, score = -124.191)
+[00:00:01] (0.010081, 0.2338, 0.2338, score = -51.4126)
+[00:00:01] (0.010081, 0.2338, 0.2338, score = -51.4126)
+[00:00:01] (0.010081, 0.2338, 0.2338, score = -51.4126)
+[00:00:01] (0.010081, 0.2338, 0.2338, score = -51.4126)
+[00:00:01] (0.0112427, 0.0302635, 0.0302635, score = -33.6713)
+[00:00:01] (0.0112427, 0.0302635, 0.0302635, score = -33.6713)
+[00:00:01] (0.0112427, 0.0302635, 0.0302635, score = -33.6713)
+[00:00:01] (0.0112427, 0.0302635, 0.0302635, score = -33.6713)
+[00:00:01] (0.0113281, 0.015301, 0.015301, score = -33.0398)
+[00:00:01] (0.0113281, 0.015301, 0.015301, score = -33.0398)
+[00:00:01] (0.0113281, 0.015301, 0.015301, score = -33.0398)
+[00:00:01] (0.0113281, 0.015301, 0.015301, score = -33.0398)
+[00:00:01] (1e-10, 0.0148402, 0.0144382, score = -32.2498)
+[00:00:01] (2e-10, 0.0148402, 0.0144382, score = -32.2498)
+[00:00:01] (1e-10, 0.0148402, 0.0144382, score = -32.2498)
+[00:00:01] (1e-10, 0.0148402, 0.0144382, score = -32.2498)
+[00:00:01] (1e-10, 0.0146116, 0.0142842, score = -32.2496)
+[00:00:01] (2e-10, 0.0146116, 0.0142842, score = -32.2496)
+[00:00:01] (1e-10, 0.0146116, 0.0142842, score = -32.2496)
+[00:00:01] (1e-10, 0.0146116, 0.0142842, score = -32.2496)
+[00:00:01] (1e-10, 0.0145546, 0.0142558, score = -32.2496)
+[00:00:01] (2e-10, 0.0145546, 0.0142558, score = -32.2496)
+[00:00:01] (1e-10, 0.0145546, 0.0142558, score = -32.2496)
+[00:00:01] (1e-10, 0.0145546, 0.0142558, score = -32.2496)
+[00:00:01] (1e-10, 0.0145595, 0.0142549, score = -32.2496)
+[00:00:01] (2e-10, 0.0145595, 0.0142549, score = -32.2496)
+[00:00:01] (1e-10, 0.0145595, 0.0142549, score = -32.2496)
+[00:00:01] (1e-10, 0.0145595, 0.0142549, score = -32.2496)
+[00:00:01] (1e-10, 0.0145595, 0.0142549, score = -32.2496)
+[00:00:01] optx = (1e-10, 0.0145595, 0.0142549, score = -32.2496)
+[00:00:01] [Species search]   After model rate opt, ll=-32.2496
+[00:00:01] [Species search] Optimizing model rates (thorough)
+[00:00:01] Free parameters: 3
+[00:00:01] (1e-10, 0.0145595, 0.0142549, score = -32.2496)
+[00:00:01] (2e-10, 0.0145595, 0.0142549, score = -32.2496)
+[00:00:01] (1e-10, 0.0145595, 0.0142549, score = -32.2496)
+[00:00:01] (1e-10, 0.0145595, 0.0142549, score = -32.2496)
+[00:00:01] (1e-10, 0.00479899, 0.00927033, score = -32.7555)
+[00:00:01] (2e-10, 0.00479899, 0.00927033, score = -32.7555)
+[00:00:01] (1e-10, 0.00479899, 0.00927033, score = -32.7555)
+[00:00:01] (1e-10, 0.00479899, 0.00927033, score = -32.7555)
+[00:00:01] (1e-10, 0.0145275, 0.0142385, score = -32.2496)
+[00:00:01] (2e-10, 0.0145275, 0.0142385, score = -32.2496)
+[00:00:01] (1e-10, 0.0145275, 0.0142385, score = -32.2496)
+[00:00:01] (1e-10, 0.0145275, 0.0142385, score = -32.2496)
+[00:00:01] (1e-10, 0.0145575, 0.0142539, score = -32.2496)
+[00:00:01] (2e-10, 0.0145575, 0.0142539, score = -32.2496)
+[00:00:01] (1e-10, 0.0145575, 0.0142539, score = -32.2496)
+[00:00:01] (1e-10, 0.0145575, 0.0142539, score = -32.2496)
+[00:00:01] (1e-10, 0.0145575, 0.0142539, score = -32.2496)
+[00:00:01] optx = (1e-10, 0.0145575, 0.0142539, score = -32.2496)
+[00:00:01] [Species search]   After model rate opt, ll=-32.2496
+[00:00:01] Sampling reconciled gene trees... (100 samples)
+[00:00:01] Sampling reconciliations...
+[00:00:01] Exporting reconciliations...
+[00:00:02] Exporting reconciliation summaries...
+[00:00:02] Reconciliations output directory: real_ufboot/reconciliations
+[00:00:02] Final log likelihood: ll=-32.2496
+[00:00:02] End of the execution

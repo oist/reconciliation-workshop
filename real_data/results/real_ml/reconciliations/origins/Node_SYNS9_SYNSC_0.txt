@@ -1,0 +1,4 @@
+vertical: 0.34
+Node_PROMM_SYNPW_0, 0.64
+PROM9, 0.01
+Node_SYNPX_SYNS9_0, 0.01

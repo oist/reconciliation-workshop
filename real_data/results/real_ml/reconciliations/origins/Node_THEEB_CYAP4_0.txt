@@ -1,0 +1,5 @@
+vertical: 1.04
+Node_SYNR3_PROMM_0, 0.01
+Node_SYNJA_GLVIO1_0, 0.01
+Node_SYNE7_SYNP6_0, 0.01
+Node_CYAA5_SYNP2_0, 0.01
