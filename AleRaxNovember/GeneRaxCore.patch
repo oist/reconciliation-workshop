@@ -1,0 +1,204 @@
+diff --git a/.gitmodules b/.gitmodules
+index a7e57f0..ac1983c 100644
+--- a/.gitmodules
++++ b/.gitmodules
+@@ -1,6 +1,8 @@
+ [submodule "ext/coraxlib"]
+ 	path = ext/coraxlib
+ 	url = https://codeberg.org/Exelixis-Lab/coraxlib.git
++	ignore = dirty
+ [submodule "ext/MPIScheduler"]
+ 	path = ext/MPIScheduler
+ 	url = https://github.com/BenoitMorel/MPIScheduler.git
++	ignore = dirty
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index af81063..4246231 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -1,4 +1,4 @@
+-cmake_minimum_required(VERSION 3.0.1)
++cmake_minimum_required(VERSION 3.5)
+ 
+ project(GeneRaxCoreProject
+         VERSION 0.0)
+diff --git a/src/util/Scenario.cpp b/src/util/Scenario.cpp
+index 4230e34..0a31f05 100644
+--- a/src/util/Scenario.cpp
++++ b/src/util/Scenario.cpp
+@@ -74,6 +74,11 @@ void Scenario::addEvent(const Event &event) {
+ void Scenario::saveEventsCounts(const std::string &filename,
+                                 bool masterRankOnly) {
+   ParallelOfstream os(filename, masterRankOnly);
++  saveEventsCounts(os, masterRankOnly);
++}
++
++void Scenario::saveEventsCounts(ParallelOfstream &os,
++                                bool masterRankOnly) {
+   for (unsigned int i = 0;
+        i < static_cast<unsigned int>(ReconciliationEventType::EVENT_Invalid);
+        ++i) {
+@@ -176,6 +181,11 @@ void Scenario::savePerSpeciesEventsCounts(const std::string &filename,
+                                           bool masterRankOnly) {
+ 
+   ParallelOfstream os(filename, masterRankOnly);
++  savePerSpeciesEventsCounts(os, masterRankOnly);
++}
++
++void Scenario::savePerSpeciesEventsCounts(ParallelOfstream &os,
++                                          bool masterRankOnly) {
+   std::unordered_map<std::string, std::vector<double>> speciesToEventCount;
+   std::vector<double> defaultCount(EVENT_TYPE_NUMBER, 0);
+   for (unsigned int e = 0;
+@@ -224,12 +234,22 @@ void Scenario::savePerSpeciesEventsCounts(const std::string &filename,
+       eventCount[1]++;
+       eventCount[2]++;
+       break;
+-    case ReconciliationEventType::EVENT_T:
+-      eventCount[3]++;
++    case ReconciliationEventType::EVENT_T: 
++      {
++        assert(event.pllDestSpeciesNode != nullptr);
++        auto& receivingSpeciesEventCount = 
++          speciesToEventCount[event.pllDestSpeciesNode->label];
++        receivingSpeciesEventCount[3]++;
++      }
+       break;
+     case ReconciliationEventType::EVENT_TL:
+-      eventCount[2]++;
+-      eventCount[3]++;
++      {
++        assert(event.pllDestSpeciesNode != nullptr);
++        auto& receivingSpeciesEventCount = 
++          speciesToEventCount[event.pllDestSpeciesNode->label];
++        receivingSpeciesEventCount[2]++;
++        receivingSpeciesEventCount[3]++;
++      }
+       break;
+     case ReconciliationEventType::EVENT_L:
+     case ReconciliationEventType::EVENT_Invalid:
+@@ -252,12 +272,14 @@ void Scenario::mergeTransfers(const PLLRootedTree &speciesTree,
+                               const std::string &filename,
+                               const std::vector<std::string> &filenames,
+                               bool parallel, bool normalize) {
++  using namespace std::string_literals;
+   ParallelOfstream os(filename, parallel);
+   const auto labelToId = speciesTree.getDeterministicLabelToId();
+   const auto idToLabel = speciesTree.getDeterministicIdToLabel();
+   const unsigned int N = labelToId.size();
+   const VectorDouble zeros(N, 0.0);
+   auto countMatrix = MatrixDouble(N, zeros);
++  unsigned sampleCount = 0;
+   for (const auto &f : filenames) {
+     std::ifstream is(f);
+     std::string line;
+@@ -265,6 +287,10 @@ void Scenario::mergeTransfers(const PLLRootedTree &speciesTree,
+       if (line[0] == '#') {
+         continue;
+       }
++      if (line.find("---Sample "s) != std::string::npos) {
++        ++sampleCount;
++        continue;
++      }
+       std::istringstream iss(line);
+       std::string sp1;
+       std::string sp2;
+@@ -273,9 +299,9 @@ void Scenario::mergeTransfers(const PLLRootedTree &speciesTree,
+       countMatrix[labelToId.at(sp1)][labelToId.at(sp2)] += count;
+     }
+   }
+-  unsigned int subfileCount = filenames.size();
++  unsigned normalization = sampleCount == 0 ? filenames.size() : sampleCount;
+   if (parallel) {
+-    ParallelContext::sumUInt(subfileCount);
++    ParallelContext::sumUInt(normalization);
+   }
+   std::vector<TransferPair> transfers;
+   for (unsigned int i = 0; i < N; ++i) {
+@@ -288,7 +314,7 @@ void Scenario::mergeTransfers(const PLLRootedTree &speciesTree,
+       }
+       double transferCount = countMatrix[i][j];
+       if (normalize) {
+-        transferCount /= static_cast<double>(subfileCount);
++        transferCount /= static_cast<double>(normalization);
+       }
+       transfers.push_back(TransferPair(transferCount, i, j));
+     }
+@@ -303,10 +329,12 @@ void Scenario::mergeTransfers(const PLLRootedTree &speciesTree,
+ void Scenario::mergePerSpeciesEventCounts(
+     const PLLRootedTree &speciesTree, const std::string &filename,
+     const std::vector<std::string> &filenames, bool parallel, bool normalize) {
++  using namespace std::string_literals;
+   ParallelOfstream os(filename, parallel);
+   auto speciesLabelToIndex = speciesTree.getDeterministicLabelToId();
+   auto speciesIndexToLabel = speciesTree.getDeterministicIdToLabel();
+   auto N = speciesLabelToIndex.size();
++  unsigned sampleCount = 0;
+   std::vector<double> eventCounts(EVENT_TYPE_NUMBER * N, 0.0);
+   for (const auto &subfile : filenames) {
+     std::ifstream is(subfile);
+@@ -316,6 +344,10 @@ void Scenario::mergePerSpeciesEventCounts(
+       if (line[0] == '#') {
+         continue;
+       }
++      if (line.find("---Sample "s) != std::string::npos) {
++        ++sampleCount;
++        continue;
++      }
+       std::istringstream iss(line);
+       std::string species;
+       iss >> species;
+@@ -331,16 +363,16 @@ void Scenario::mergePerSpeciesEventCounts(
+       }
+     }
+   }
+-  unsigned int subfileCount = filenames.size();
++  unsigned normalization = sampleCount == 0 ? filenames.size() : sampleCount;
+   if (parallel) {
+     if (normalize) {
+-      ParallelContext::sumUInt(subfileCount);
++      ParallelContext::sumUInt(normalization);
+     }
+     ParallelContext::sumVectorDouble(eventCounts);
+   }
+   if (normalize) {
+     for (auto &count : eventCounts) {
+-      count /= static_cast<double>(subfileCount);
++      count /= static_cast<double>(normalization);
+     }
+   }
+   dumpSpeciesEventCountVector(os, eventCounts, speciesIndexToLabel);
+@@ -440,6 +472,10 @@ void Scenario::countOrigins(const StringToUint &labelToId,
+ 
+ void Scenario::saveTransfers(const std::string &filename, bool masterRankOnly) {
+   ParallelOfstream os(filename, masterRankOnly);
++  saveTransfers(os, masterRankOnly);
++}
++
++void Scenario::saveTransfers(ParallelOfstream& os, bool masterRankOnly) {
+   for (auto &event : _events) {
+     if (event.type == ReconciliationEventType::EVENT_T ||
+         event.type == ReconciliationEventType::EVENT_TL) {
+diff --git a/src/util/Scenario.hpp b/src/util/Scenario.hpp
+index a69d78d..f35a869 100644
+--- a/src/util/Scenario.hpp
++++ b/src/util/Scenario.hpp
+@@ -132,7 +132,10 @@ public:
+    */
+   void saveEventsCounts(const std::string &filename,
+                         bool masterRankOnly = true);
++  void saveEventsCounts(ParallelOfstream& os,
++                        bool masterRankOnly = true);
+   void saveTransfers(const std::string &filename, bool masterRankOnly = true);
++  void saveTransfers(ParallelOfstream& os, bool masterRankOnly = true);
+   double countTransfer(const std::string &from, const std::string &to);
+   static void mergeTransfers(const PLLRootedTree &speciesTree,
+                              const std::string &filename,
+@@ -160,6 +163,8 @@ public:
+                           bool masterRankOnly = true) const;
+   void savePerSpeciesEventsCounts(const std::string &filename,
+                                   bool masterRankOnl = true);
++  void savePerSpeciesEventsCounts(ParallelOfstream& os,
++                                  bool masterRankOnl = true);
+   static void mergePerSpeciesEventCounts(
+       const PLLRootedTree &tree, const std::string &filename,
+       const std::vector<std::string> &filenames, bool parallel, bool normalize);

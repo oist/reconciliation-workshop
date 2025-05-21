@@ -1,0 +1,75 @@
+[00:00:00] AleRax v1.2.0
+[00:00:00] AleRax was called as follow:
+../aleraxNov --families rgb_families.txt --species-tree S.tree --prefix rgbNov --gene-tree-samples 10000 --seed 42 --rec-model UndatedDTL --model-parametrization GLOBAL 
+
+[00:00:00] Run settings:
+	Family file: rgb_families.txt
+	Starting species tree: specified by user: S.tree
+	Output directory: rgbNov
+	MPI Ranks: 1
+	Number of reconciled gene trees to sample: 10000
+	Random seed: 42
+	Reconciliation model: UndatedDTL
+	Model parametrization:  global to all species and families
+Rate optimizer: LBFGSB
+	Memory savings: OFF
+	Transfer constraints: transfers to parents are forbidden
+	Prune species mode is disabled
+	Gene tree rooting: all gene tree root positions are considered with the same probability
+	Origination strategy: gene families can originate from each species with the same probability
+	Species tree search: skipping species tree search
+	AleRax will exclude gene families covering less than 1 species
+
+[00:00:00] Generating ccp files...
+[00:00:00] Filtering families
+[00:00:00] Families: 1
+[00:00:00] Triming families covering less than 1 species 
+[00:00:00] Remaining families: 1
+[00:00:00] Initializing starting species tree...
+[00:00:00] Finished starting species tree initialization
+[00:00:00] Checking that ccp and mappings are valid...
+[00:00:00] Input data information:
+- Number of gene families: 1
+- Number of species: 6
+- Total number of genes: 6
+- Average number of genes per family: 6
+- Maximum number of genes per family: 6
+- Species covered with the smallest family coverage: "F" (covered by 1/1 families)
+- Average (over species) species family coverage: 1
+
+((((A:1.000000,B:1.000000)Node_A_B_0:1.000000,C:2.000000)Node_A_C_0:1.000000,(D:1.500000,E:1.500000)Node_D_E_0:1.500000)Node_A_D_0:1.000000,F:4.000000)Node_A_F_0:1.000000;
+[00:00:00] Initializing ccps and evaluators...
+[00:00:00] Initializing ccps finished
+[00:00:00] Total number of clades: 29
+[00:00:00] Load balancing: 1
+[00:00:00] Recommended maximum number of cores: 1
+[00:00:00] Initial ll=-6.48678
+[00:00:00] [Species search] Optimizing model rates (light)
+[00:00:00] Free parameters: 3
+[00:00:00] (0.1, 0.1, 0.1, score = -6.48678)
+[00:00:00] (0.1, 0.1, 0.1, score = -6.48678)
+[00:00:00] (0.1, 0.1, 0.1, score = -6.48678)
+[00:00:00] (0.1, 0.1, 0.1, score = -6.48678)
+[00:00:00] (1e-10, 1e-10, 1e-10, score = -3.8712)
+[00:00:00] (2e-10, 1e-10, 1e-10, score = -3.8712)
+[00:00:00] (1e-10, 2e-10, 1e-10, score = -3.8712)
+[00:00:00] (1e-10, 1e-10, 2e-10, score = -3.8712)
+[00:00:00] (1e-10, 1e-10, 1e-10, score = -3.8712)
+[00:00:00] optx = (1e-10, 1e-10, 1e-10, score = -3.8712)
+[00:00:00] [Species search]   After model rate opt, ll=-3.8712
+[00:00:00] [Species search] Optimizing model rates (thorough)
+[00:00:00] Free parameters: 3
+[00:00:00] (1e-10, 1e-10, 1e-10, score = -3.8712)
+[00:00:00] (2e-10, 1e-10, 1e-10, score = -3.8712)
+[00:00:00] (1e-10, 2e-10, 1e-10, score = -3.8712)
+[00:00:00] (1e-10, 1e-10, 2e-10, score = -3.8712)
+[00:00:00] (1e-10, 1e-10, 1e-10, score = -3.8712)
+[00:00:00] optx = (1e-10, 1e-10, 1e-10, score = -3.8712)
+[00:00:00] [Species search]   After model rate opt, ll=-3.8712
+[00:00:00] Sampling reconciled gene trees... (10000 samples)
+[00:00:00] Sampling reconciliations...
+[00:00:00] Exporting reconciliations...
+[00:00:04] Exporting reconciliation summaries...
+[00:00:04] Reconciliations output directory: rgbNov/reconciliations
+[00:00:04] Final log likelihood: ll=-3.8712
+[00:00:04] End of the execution

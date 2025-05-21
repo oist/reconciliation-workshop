@@ -1,5 +1,48 @@
-../alerax --families red_families.txt --species-tree S.tree  --prefix red --gene-tree-samples 10 --seed 42 --rec-model UndatedDTL --model-parametrization GLOBAL
-../alerax --families green_families.txt --species-tree S.tree  --prefix green --gene-tree-samples 10 --seed 42 --rec-model UndatedDTL --model-parametrization GLOBAL
-../alerax --families blue_families.txt --species-tree S.tree  --prefix blue --gene-tree-samples 10 --seed 42 --rec-model UndatedDTL --model-parametrization GLOBAL
-../alerax --families rgb_families.txt --species-tree S.tree  --prefix rgb --gene-tree-samples 10 --seed 42 --rec-model UndatedDTL --model-parametrization GLOBAL
+#!/bin/bash
+
+../aleraxNov --families red_families.txt --species-tree S.tree  --prefix redNov --gene-tree-samples 10000 --seed 42 --rec-model UndatedDTL --model-parametrization GLOBAL
+../aleraxnov --families green_families.txt --species-tree S.tree  --prefix greenNov --gene-tree-samples 10000 --seed 42 --rec-model UndatedDTL --model-parametrization GLOBAL
+../aleraxNov --families blue_families.txt --species-tree S.tree  --prefix blueNov --gene-tree-samples 10000 --seed 42 --rec-model UndatedDTL --model-parametrization GLOBAL
+../aleraxNov --families rgb_families.txt --species-tree S.tree  --prefix rgbNov --gene-tree-samples 10000 --seed 42 --rec-model UndatedDTL --model-parametrization GLOBAL
+
+../aleraxApr --families red_families.txt --species-tree S.tree  --prefix redApril --gene-tree-samples 10000 --seed 42 --rec-model UndatedDTL --model-parametrization GLOBAL
+../aleraxApr --families green_families.txt --species-tree S.tree  --prefix greenApril --gene-tree-samples 10000 --seed 42 --rec-model UndatedDTL --model-parametrization GLOBAL
+../aleraxApr --families blue_families.txt --species-tree S.tree  --prefix blueApril --gene-tree-samples 10000 --seed 42 --rec-model UndatedDTL --model-parametrization GLOBAL
+../aleraxApr --families rgb_families.txt --species-tree S.tree  --prefix rgbApril --gene-tree-samples 10000 --seed 42 --rec-model UndatedDTL --model-parametrization GLOBAL
+
+
+../ALEobserve red.tree
+../ALEobserve green.tree
+../ALEobserve blue.tree
+../ALEobserve rgb.trees
+
+../ALEml_undated S.tree red.tree.ale sample=10000
+../ALEml_undated S.tree green.tree.ale sample=10000
+../ALEml_undated S.tree blue.tree.ale sample=10000
+../ALEml_undated S.tree rgb.trees.ale sample=10000
+
+
+
+# Constrain alerax
+#ALE vs AleRax:
+#rate of	 Duplications	Transfers	Losses
+#ML 	1e-10	0.509933	0.436331
+## node D L T
+#A 1e-10 0.0910543 0.548826
+#dataset: green
+#ALE vs AleRax:
+#rate of	 Duplications	Transfers	Losses
+#ML 	1e-10	0.11654	1e-10
+# node D L T
+#A 1e-10 1e-10 0.117175
+#dataset: blue
+#ALE vs AleRax:
+#rate of	 Duplications	Transfers	Losses
+#ML 	0.000293884	0.145287	0.1399
+# node D L T
+#A 1e-10 0.102728 0.142987
+
+../aleraxApr --families red_families.txt --species-tree S.tree  --prefix redApril_fixed --gene-tree-samples 10000 --seed 42 --rec-model UndatedDTL --model-parametrization GLOBAL --fix-rates --d 0 --t 0.509933 --l 0.436331
+../aleraxApr --families green_families.txt --species-tree S.tree  --prefix greenApril_fixed --gene-tree-samples 10000 --seed 42 --rec-model UndatedDTL --model-parametrization GLOBAL --fix-rates --d 0 --t 0.11654 --l 0
+../aleraxApr --families blue_families.txt --species-tree S.tree  --prefix blueApril_fixed --gene-tree-samples 10000 --seed 42 --rec-model UndatedDTL --model-parametrization GLOBAL --fix-rates --d 0 --t 0.145287 --l 01399
 

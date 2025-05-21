@@ -1,0 +1,120 @@
+diff --git a/.gitmodules b/.gitmodules
+index a97a3de..6767b02 100644
+--- a/.gitmodules
++++ b/.gitmodules
+@@ -1,3 +1,4 @@
+ [submodule "ext/GeneRaxCore"]
+ 	path = ext/GeneRaxCore
+ 	url = https://github.com/noahares/GeneRaxCore.git
++	ignore = dirty
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index 11e6c46..964acfa 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -1,4 +1,4 @@
+-cmake_minimum_required(VERSION 3.0.1)
++cmake_minimum_required(VERSION 3.5)
+ 
+ project(AleRaxProject
+         VERSION 0.0)
+diff --git a/src/ale/AleOptimizer.cpp b/src/ale/AleOptimizer.cpp
+index b7289bf..4d82edb 100644
+--- a/src/ale/AleOptimizer.cpp
++++ b/src/ale/AleOptimizer.cpp
+@@ -399,6 +399,7 @@ void AleOptimizer::saveFamiliesTakingHighway(
+ }
+ 
+ void AleOptimizer::reconcile(unsigned int samples) {
++  using namespace std::string_literals;
+   assert(getCurrentStep() == AleStep::Reconciliation);
+   if (samples == 0) {
+     return;
+@@ -444,49 +445,49 @@ void AleOptimizer::reconcile(unsigned int samples) {
+     // all MPI ranks passed the loop
+     _evaluator->sampleFamilyScenarios(i, samples, scenarios);
+     allScenarios.insert(allScenarios.end(), scenarios.begin(), scenarios.end());
+-    assert(scenarios.size() == samples);
+-    // writing in the reconciliations/all/ dir
+-    auto geneTreesPath = FileSystem::joinPaths(
++    assert(scenarios.size() == samples);auto geneTreesPath = FileSystem::joinPaths(
+         allRecDir, localFamilies[i].name + std::string("_samples.newick"));
+-    ParallelOfstream geneTreesOs(geneTreesPath, false);
+-    auto geneTreesAlePath = FileSystem::joinPaths(
+-        allRecDir, localFamilies[i].name + std::string("_samples.alerec"));
+-    ParallelOfstream geneTreesAleOs(geneTreesAlePath, false);
+-    for (unsigned int sample = 0; sample < samples; ++sample) {
+-      auto out = FileSystem::joinPaths(
+-          allRecDir, localFamilies[i].name + std::string("_sample_") +
+-                         std::to_string(sample) + ".xml");
+-      auto eventCountsFile = FileSystem::joinPaths(
+-          allRecDir, localFamilies[i].name + std::string("_eventCounts_") +
+-                         std::to_string(sample) + ".txt");
+-      auto perSpeciesEventCountsFile = FileSystem::joinPaths(
+-          allRecDir, localFamilies[i].name +
+-                         std::string("_speciesEventCounts_") +
+-                         std::to_string(sample) + ".txt");
+-      auto transferFile = FileSystem::joinPaths(
+-          allRecDir, localFamilies[i].name + std::string("_transfers_") +
+-                         std::to_string(sample) + ".txt");
+-      perSpeciesEventCountsFiles.push_back(perSpeciesEventCountsFile);
+-      transferFiles.push_back(transferFile);
+-      auto &scenario = *scenarios[sample];
+-      scenario.saveReconciliation(out, ReconciliationFormat::RecPhyloXML,
+-                                  false);
+-      scenario.saveReconciliation(geneTreesOs,
+-                                  ReconciliationFormat::NewickEvents);
+-      scenario.saveReconciliation(geneTreesAleOs, ReconciliationFormat::ALE);
+-      scenario.saveEventsCounts(eventCountsFile, false);
+-      scenario.savePerSpeciesEventsCounts(perSpeciesEventCountsFile, false);
+-      scenario.saveTransfers(transferFile, false);
++    // writing in the reconciliations/all/ dir
++    {
++      ParallelOfstream geneTreesOs(geneTreesPath, false);
++      auto geneTreesAlePath = FileSystem::joinPaths(
++          allRecDir, localFamilies[i].name + std::string("_samples.alerec"));
++      ParallelOfstream geneTreesAleOs(geneTreesAlePath, false);
++      std::string sampleFilename = FileSystem::joinPaths(
++        allRecDir, localFamilies[i].name + "_samples.xml"s);
++      std::string eventCountsFilename = FileSystem::joinPaths(
++        allRecDir, localFamilies[i].name + "_eventCount.txts"s);
++      std::string speciesEventCountsFilename = FileSystem::joinPaths(
++        allRecDir, localFamilies[i].name + "_speciesEventCounts.txt"s);
++      std::string transfersFilename = FileSystem::joinPaths(
++        allRecDir, localFamilies[i].name + "_transfers.txt"s);
++      ParallelOfstream sampleOs(sampleFilename, false);
++      ParallelOfstream eventCountsOs(eventCountsFilename, false);
++      ParallelOfstream speciesEventCountsOs(speciesEventCountsFilename, false);
++      ParallelOfstream transfersOs(transfersFilename, false);
++      perSpeciesEventCountsFiles.push_back(speciesEventCountsFilename);
++      transferFiles.push_back(transfersFilename);
++      for (unsigned int sample = 0; sample < samples; ++sample) {
++        auto &scenario = *scenarios[sample];
++        sampleOs << "---Sample " << (sample + 1) << "---\n";
++        scenario.saveReconciliation(sampleOs, ReconciliationFormat::RecPhyloXML);
++        scenario.saveReconciliation(geneTreesOs, ReconciliationFormat::NewickEvents);
++        scenario.saveReconciliation(geneTreesAleOs, ReconciliationFormat::ALE);
++        eventCountsOs << "---Sample " << (sample + 1) << "---\n";
++        scenario.saveEventsCounts(eventCountsOs, false);
++        speciesEventCountsOs << "---Sample " << (sample + 1) << "---\n";
++        scenario.savePerSpeciesEventsCounts(speciesEventCountsOs, false);
++        transfersOs << "---Sample " << (sample + 1) << "---\n";
++        scenario.saveTransfers(transfersOs, false);
++        for (unsigned int hi = 0; hi < highways.size(); ++hi) {
++          perHighwayPerFamTransfers[hi][i] += scenario.countTransfer(
++              highways[hi].src->label, highways[hi].dest->label);
++        }
++      }
+       for (unsigned int hi = 0; hi < highways.size(); ++hi) {
+-        perHighwayPerFamTransfers[hi][i] += scenario.countTransfer(
+-            highways[hi].src->label, highways[hi].dest->label);
++        perHighwayPerFamTransfers[hi][i] /= static_cast<double>(samples);
+       }
+     }
+-    for (unsigned int hi = 0; hi < highways.size(); ++hi) {
+-      perHighwayPerFamTransfers[hi][i] /= static_cast<double>(samples);
+-    }
+-    geneTreesOs.close();
+-    geneTreesAleOs.close();
+     // writing in the reconciliations/summaries/ dir
+     auto consensusFile = FileSystem::joinPaths(
+         summariesDir,

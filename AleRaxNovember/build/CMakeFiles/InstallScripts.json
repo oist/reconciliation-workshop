@@ -1,0 +1,29 @@
+{
+	"InstallScripts" : 
+	[
+		"/Users/leonardo/0_research/test_alerax_transfer_patch/AleRaxNovember/build/cmake_install.cmake",
+		"/Users/leonardo/0_research/test_alerax_transfer_patch/AleRaxNovember/build/ext/cmake_install.cmake",
+		"/Users/leonardo/0_research/test_alerax_transfer_patch/AleRaxNovember/build/ext/GeneRaxCore/cmake_install.cmake",
+		"/Users/leonardo/0_research/test_alerax_transfer_patch/AleRaxNovember/build/ext/GeneRaxCore/ext/cmake_install.cmake",
+		"/Users/leonardo/0_research/test_alerax_transfer_patch/AleRaxNovember/build/ext/GeneRaxCore/ext/coraxlib/cmake_install.cmake",
+		"/Users/leonardo/0_research/test_alerax_transfer_patch/AleRaxNovember/build/ext/GeneRaxCore/ext/coraxlib/src/corax/cmake_install.cmake",
+		"/Users/leonardo/0_research/test_alerax_transfer_patch/AleRaxNovember/build/ext/GeneRaxCore/ext/coraxlib/src/corax/core/cmake_install.cmake",
+		"/Users/leonardo/0_research/test_alerax_transfer_patch/AleRaxNovember/build/ext/GeneRaxCore/ext/coraxlib/src/corax/optimize/cmake_install.cmake",
+		"/Users/leonardo/0_research/test_alerax_transfer_patch/AleRaxNovember/build/ext/GeneRaxCore/ext/coraxlib/src/corax/optimize/lbfgsb/cmake_install.cmake",
+		"/Users/leonardo/0_research/test_alerax_transfer_patch/AleRaxNovember/build/ext/GeneRaxCore/ext/coraxlib/src/corax/tree/cmake_install.cmake",
+		"/Users/leonardo/0_research/test_alerax_transfer_patch/AleRaxNovember/build/ext/GeneRaxCore/ext/coraxlib/src/corax/io/cmake_install.cmake",
+		"/Users/leonardo/0_research/test_alerax_transfer_patch/AleRaxNovember/build/ext/GeneRaxCore/ext/coraxlib/src/corax/kernel/cmake_install.cmake",
+		"/Users/leonardo/0_research/test_alerax_transfer_patch/AleRaxNovember/build/ext/GeneRaxCore/ext/coraxlib/src/corax/kernel/generic/cmake_install.cmake",
+		"/Users/leonardo/0_research/test_alerax_transfer_patch/AleRaxNovember/build/ext/GeneRaxCore/ext/coraxlib/src/corax/model/cmake_install.cmake",
+		"/Users/leonardo/0_research/test_alerax_transfer_patch/AleRaxNovember/build/ext/GeneRaxCore/ext/coraxlib/src/corax/util/cmake_install.cmake",
+		"/Users/leonardo/0_research/test_alerax_transfer_patch/AleRaxNovember/build/ext/GeneRaxCore/ext/coraxlib/src/corax/topology/cmake_install.cmake",
+		"/Users/leonardo/0_research/test_alerax_transfer_patch/AleRaxNovember/build/ext/GeneRaxCore/ext/MPIScheduler/cmake_install.cmake",
+		"/Users/leonardo/0_research/test_alerax_transfer_patch/AleRaxNovember/build/ext/GeneRaxCore/ext/MPIScheduler/src/cmake_install.cmake",
+		"/Users/leonardo/0_research/test_alerax_transfer_patch/AleRaxNovember/build/ext/GeneRaxCore/src/cmake_install.cmake",
+		"/Users/leonardo/0_research/test_alerax_transfer_patch/AleRaxNovember/build/ext/GeneRaxCore/src/tests/cmake_install.cmake",
+		"/Users/leonardo/0_research/test_alerax_transfer_patch/AleRaxNovember/build/src/cmake_install.cmake",
+		"/Users/leonardo/0_research/test_alerax_transfer_patch/AleRaxNovember/build/src/tools/cmake_install.cmake",
+		"/Users/leonardo/0_research/test_alerax_transfer_patch/AleRaxNovember/build/src/ale/cmake_install.cmake"
+	],
+	"Parallel" : false
+}
