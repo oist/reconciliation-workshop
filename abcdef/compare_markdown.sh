@@ -33,9 +33,9 @@ for d in {red,green,blue,rgb}; do
 	#echo "AleRax Nov"
 	#cat ${d}Nov/reconciliations/perspecies_eventcount.txt 
 	echo "#### AleRax April"
-	head -n 1 ${d}April/reconciliations/totalSpeciesEventCounts.txt | sed -E 's/, / /g' | awk '{print "|"$1"|"$2"|"$3"|"$5"|"$4"|"$6"|"$7"|"$8"|"$9"|"}'
-	echo "|-|-|-|-|-|-|-|-|-|"
-	tail -n+2 ${d}April/reconciliations/totalSpeciesEventCounts.txt | sed -E 's/, / /g' | awk '{print "|"$1"|"$2"|"$3"|"$5"|"$4"|"$6"|"$7"|"$8"|"$9"|"}'
+	head -n 1 ${d}April/reconciliations/totalSpeciesEventCounts.txt | sed -E 's/, / /g' | awk '{print "|"$1"|"$3"|"$5"|"$4"|"$6"|"$7"|"$8"|"$9"|"}'
+	echo "|-|-|-|-|-|-|-|-|"
+	tail -n+2 ${d}April/reconciliations/totalSpeciesEventCounts.txt | sed -E 's/, / /g' | awk '{print "|"$1"|"$3"|"$5"|"$4"|"$6"|"$7"|"$8"|"$9"|"}'
 	echo " "
 	echo "#### ALE"
 ## of	 		Duplications	Transfers	Losses	Originations	copies	singletons	extinction_prob	presence	LL
@@ -52,9 +52,9 @@ for d in {red,green,blue}; do
 	echo "### Dataset: ${d}"
 
 	echo "#### AleRax April"
-	head -n 1 ${d}April_fixed/reconciliations/totalSpeciesEventCounts.txt | sed -E 's/, / /g' | awk '{print "|"$1"|"$2"|"$3"|"$5"|"$4"|"$6"|"$7"|"$8"|"$9"|"}'
-	echo "|-|-|-|-|-|-|-|-|-|"
-	tail -n+2 ${d}April_fixed/reconciliations/totalSpeciesEventCounts.txt | sed -E 's/, / /g' | awk '{print "|"$1"|"$2"|"$3"|"$5"|"$4"|"$6"|"$7"|"$8"|"$9"|"}'
+	head -n 1 ${d}April_fixed/reconciliations/totalSpeciesEventCounts.txt | sed -E 's/, / /g' | awk '{print "|"$1"|"$3"|"$5"|"$4"|"$6"|"$7"|"$8"|"$9"|"}'
+	echo "|-|-|-|-|-|-|-|-|"
+	tail -n+2 ${d}April_fixed/reconciliations/totalSpeciesEventCounts.txt | sed -E 's/, / /g' | awk '{print "|"$1"|"$3"|"$5"|"$4"|"$6"|"$7"|"$8"|"$9"|"}'
 	echo " "
 	echo "#### ALE"
 	printf "|node|duplications|transfers|losses|originations|copies|singletons|presence|\n|-|-|-|-|-|-|-|-|\n"
