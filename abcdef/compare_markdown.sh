@@ -40,8 +40,8 @@ for d in {red,green,blue,rgb}; do
 	echo "#### ALE"
 ## of	 		Duplications	Transfers	Losses	Originations	copies	singletons	extinction_prob	presence	LL
 #S_terminal_branch	A(0)	0	0.1915	0.1855	0.0108	1	0.8263	0.110227	1	-13.8975
-	printf "|node|duplications|transfers|losses|originations|copies|singletons|presence|\n|-|-|-|-|-|-|-|-|-|\n"
-	tail -n11  S.tree_${d}*.uml_rec | sed -E 's/\t/ /' | awk '{print "|"$2"|"$3"|"$4"|"$5"|"$6"|"$7"|"$8"|"$9"|"$11"|"}'
+	printf "|node|duplications|transfers|losses|originations|copies|singletons|presence|\n|-|-|-|-|-|-|-|-|\n"
+	tail -n11  S.tree_${d}*.uml_rec | sed -E 's/\t/ /' | awk '{print "|"$2"|"$3"|"$4"|"$5"|"$6"|"$7"|"$8"|"$10"|"}'
 	echo " " 
 done
 
@@ -57,8 +57,8 @@ for d in {red,green,blue}; do
 	tail -n+2 ${d}April_fixed/reconciliations/totalSpeciesEventCounts.txt | sed -E 's/, / /g' | awk '{print "|"$1"|"$2"|"$3"|"$5"|"$4"|"$6"|"$7"|"$8"|"$9"|"}'
 	echo " "
 	echo "#### ALE"
-	printf "|node|duplications|transfers|losses|originations|copies|singletons|presence|\n|-|-|-|-|-|-|-|-|-|\n"
-	tail -n11  S.tree_${d}*.uml_rec | sed -E 's/\t/ /' | awk '{print "|"$2"|"$3"|"$4"|"$5"|"$6"|"$7"|"$8"|"$9"|"$11"|"}'
+	printf "|node|duplications|transfers|losses|originations|copies|singletons|presence|\n|-|-|-|-|-|-|-|-|\n"
+	tail -n11  S.tree_${d}*.uml_rec | sed -E 's/\t/ /' | awk '{print "|"$2"|"$3"|"$4"|"$5"|"$6"|"$7"|"$8"|"$10"|"}'
 	echo " "
 done
 
